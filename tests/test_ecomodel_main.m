@@ -7,11 +7,11 @@ classdef test_ecomodel_main < matlab.unittest.TestCase
             addpath(genpath([pwd '\src']));
 
             % Expected output
-            exp_lcoe = 157;
-            exp_lroe = 83;
-            exp_lpoe = -74;
-            exp_npv = -4807;
-            exp_icc = 540;
+            exp_lcoe = 1.568984775835752e+02;
+            exp_lroe = 83.364900976117450;
+            exp_lpoe = -73.533576607457790;
+            exp_npv = -4.806927431677931e+06;
+            exp_icc = 5.395126573473667e+05;
 
             % Eco settings
             global eco_settings
@@ -26,7 +26,10 @@ classdef test_ecomodel_main < matlab.unittest.TestCase
 
                        
             testCase.verifyEqual(eco.metrics.LCoE, exp_lcoe, "RelTol", 0.1)
-            
+            testCase.verifyEqual(eco.metrics.LRoE, exp_lroe, "RelTol", 0.1)
+            testCase.verifyEqual(eco.metrics.LPoE, exp_lpoe, "RelTol", 0.1)
+            testCase.verifyEqual(eco.metrics.NPV, exp_npv, "RelTol", 0.1)
+            testCase.verifyEqual(eco.metrics.ICC, exp_icc, "RelTol", 0.1)
         end
     end
 end

@@ -2,6 +2,10 @@ clear; clear global;
 close all;
 clc
 %%
+
+addpath(genpath([pwd '\inputData']));
+addpath(genpath([pwd '\src']));
+
 global eco_settings
 
 %%

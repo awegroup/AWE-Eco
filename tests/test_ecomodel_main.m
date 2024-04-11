@@ -3,8 +3,8 @@ classdef test_ecomodel_main < matlab.unittest.TestCase
   methods(Test)
         function realSolution(testCase)
             
-            addpath(genpath([pwd '\inputData']));
-            addpath(genpath([pwd '\src']));
+            addpath(genpath([pwd '\..\inputData']));
+            addpath(genpath([pwd '\..\src']));
 
             % Expected output
             exp_lcoe = 1.568984775835752e+02;

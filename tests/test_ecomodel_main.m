@@ -17,12 +17,12 @@ classdef test_ecomodel_main < matlab.unittest.TestCase
             eco_settings.power = 'FG';  % FG || GG 
             eco_settings.wing = 'fixed';  % fixed || soft
             
-            inp = eco_inputs;
+            inp = eco_inputs_Code_test;
             par = eco_import_cost_par;
             [eco] = eco_main(inp,par);
 
             
-            testCase.verifyEqual(eco.metrics.LCoE, exp_lcoe_FG, "RelTol", 0.1)
+            testCase.verifyEqual(eco.metrics.LCoE, exp_lcoe_FG, 'reltol', 1e-4)
             
         end
         
@@ -31,7 +31,7 @@ classdef test_ecomodel_main < matlab.unittest.TestCase
             addpath(genpath([pwd '\..\inputData']));
             addpath(genpath([pwd '\..\src']));
 
-            exp_lcoe_GG_fixed = 1.568984775835752e+02;
+            exp_lcoe_GG_fixed = 1.611059044013356e+02;
             
            
 
@@ -42,12 +42,12 @@ classdef test_ecomodel_main < matlab.unittest.TestCase
             eco_settings.power = 'GG';  % FG || GG 
             eco_settings.wing = 'fixed';  % fixed || soft
             
-            inp = eco_inputs;
+            inp = eco_inputs_Code_test;
             par = eco_import_cost_par;
             [eco] = eco_main(inp,par);
 
             
-            testCase.verifyEqual(eco.metrics.LCoE, exp_lcoe_GG_fixed, "RelTol", 0.1)
+            testCase.verifyEqual(eco.metrics.LCoE, exp_lcoe_GG_fixed,'reltol', 1e-4)
         end
 
         function test_GG_soft(testCase)
@@ -55,7 +55,7 @@ classdef test_ecomodel_main < matlab.unittest.TestCase
             addpath(genpath([pwd '\..\inputData']));
             addpath(genpath([pwd '\..\src']));
             
-            exp_lcoe_GG_soft  = 1.412295577674939e+02;
+            exp_lcoe_GG_soft  = 1.454369845852544e+02;
 
             % Eco settings
             global eco_settings
@@ -64,12 +64,12 @@ classdef test_ecomodel_main < matlab.unittest.TestCase
             eco_settings.power = 'GG';  % FG || GG 
             eco_settings.wing = 'soft';  % fixed || soft
             
-            inp = eco_inputs;
+            inp = eco_inputs_Code_test;
             par = eco_import_cost_par;
             [eco] = eco_main(inp,par);
 
             
-            testCase.verifyEqual(eco.metrics.LCoE, exp_lcoe_GG_soft, "RelTol", 0.1)
+            testCase.verifyEqual(eco.metrics.LCoE, exp_lcoe_GG_soft, 'reltol', 1e-4)
              
          end  
     end

@@ -3,29 +3,43 @@ function eco = eco_tether(inp,par,eco)
 global eco_settings
 t = inp.tether;
 
-%% Tether life extimation
 if isfield(t,'d')
     t.A = pi/4*t.d^2;
 elseif isfield(t,'A')
     t.d = sqrt(4*t.A/pi);
 end
 
-sigma = min([inp.system.F_t' / (par.tether.f_At*t.A); t.sigma_lim*ones(size(inp.system.F_t'))])';
-exp = polyval(par.tether.L_creep,sigma/1e9);
-
-L = 10.^exp;
-life = 1./(trapz(inp.atm.wind_range,inp.atm.gw./L));
-
-%% Tether cost and correction factors for tether life
+%% Tether capex cost 
 if strcmp(eco_settings.power,'GG')
     eco.tether.CAPEX = par.tether.p * t.A *par.tether.f_At* t.L * t.rho * (1+ par.tether.f_coat);
 elseif strcmp(eco_settings.power,'FG')
     eco.tether.CAPEX  = par.tether.f_mt * (par.tether.p * t.A *par.tether.f_At * t.L * t.rho * (1+ par.tether.f_coat));
 end
+sigma = min([inp.system.F_t' / (par.tether.f_At*t.A); t.sigma_lim*ones(size(inp.system.F_t'))])';
+
+%% Tether life extimation due to bending
+if strcmp(eco_settings.power,'GG')
+    exp = par.tether.a_1b - par.tether.a_2b * sigma/1e9;
+    Nb = 10.^exp;
+    Deltat_cycle = 1/(8760*60); % 1min/year
+    
+    L_bend = 1./(par.tether.N_bends * trapz(inp.atm.wind_range,inp.atm.gw./( Deltat_cycle*Nb )));
+    eco.tether.f_repl_bend = 1/L_bend;
+end
+
+%% Tether life extimation due to creep
+exp = polyval(par.tether.L_creep,sigma/1e9);
+L_creep = 10.^exp;
+life_creep = 1./(trapz(inp.atm.wind_range,inp.atm.gw./L_creep));
+eco.tether.f_repl_creep = 1/life_creep;
 
 %% Set tether life to infinte is tether life > AWE operational years
-eco.tether.f_repl = 1/life;
-if life > inp.business.T
+if strcmp(eco_settings.power,'GG')
+    eco.tether.f_repl = max([eco.tether.f_repl_bend,eco.tether.f_repl_creep]);
+else
+    eco.tether.f_repl = eco.tether.f_repl_creep;
+end
+if 1/eco.tether.f_repl > inp.business.T
     eco.tether.f_repl = 0;
 end
 eco.tether.OPEX = eco.tether.f_repl * eco.tether.CAPEX ;

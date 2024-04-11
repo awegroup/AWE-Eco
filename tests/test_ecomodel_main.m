@@ -17,7 +17,7 @@ classdef test_ecomodel_main < matlab.unittest.TestCase
             eco_settings.power = 'FG';  % FG || GG 
             eco_settings.wing = 'fixed';  % fixed || soft
             
-            inp = eco_inputs;
+            inp = eco_inputs_Code_test;
             par = eco_import_cost_par;
             [eco] = eco_main(inp,par);
 
@@ -42,7 +42,7 @@ classdef test_ecomodel_main < matlab.unittest.TestCase
             eco_settings.power = 'GG';  % FG || GG 
             eco_settings.wing = 'fixed';  % fixed || soft
             
-            inp = eco_inputs;
+            inp = eco_inputs_Code_test;
             par = eco_import_cost_par;
             [eco] = eco_main(inp,par);
 
@@ -64,7 +64,7 @@ classdef test_ecomodel_main < matlab.unittest.TestCase
             eco_settings.power = 'GG';  % FG || GG 
             eco_settings.wing = 'soft';  % fixed || soft
             
-            inp = eco_inputs;
+            inp = eco_inputs_Code_test;
             par = eco_import_cost_par;
             [eco] = eco_main(inp,par);
 

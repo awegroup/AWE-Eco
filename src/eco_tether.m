@@ -15,7 +15,8 @@ if strcmp(eco_settings.power,'GG')
 elseif strcmp(eco_settings.power,'FG')
     eco.tether.CAPEX  = par.tether.f_mt * (par.tether.p * t.A *par.tether.f_At * t.L * t.rho * (1+ par.tether.f_coat));
 end
-sigma = min(max(inp.system.F_t' / (par.tether.f_At*t.A)), t.sigma_lim);
+sigma = min(inp.system.F_t' / (par.tether.f_At*t.A), t.sigma_lim)';
+
 
 %% Tether life extimation due to bending
 if strcmp(eco_settings.power,'GG')

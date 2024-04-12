@@ -1,10 +1,10 @@
 function inp = eco_inputs
 
 global eco_settings
-%%
+
 if strcmp(eco_settings.input_model_file,'code')
        
-%     % Topology specific caractheristics
+    % Topology specific caractheristics
     
     if strcmp(eco_settings.power,'FG')
       
@@ -34,8 +34,6 @@ if strcmp(eco_settings.input_model_file,'code')
         
     elseif  strcmp(eco_settings.power,'GG')
 
-       
-        
         if strcmp(eco_settings.wing,'fixed')
 
           % Wind resources
@@ -77,7 +75,6 @@ if strcmp(eco_settings.input_model_file,'code')
 
         elseif strcmp(eco_settings.wing,'soft')
             
-          
           % Wind resources
           inp.atm.wind_range = [4,5,6,7,8,9,10,11,12,13,14,16,18,20,22];
           atm.k = 2;

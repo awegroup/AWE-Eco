@@ -24,12 +24,14 @@ for ind = 1:length(PATH)
         CAPEX_ind(ind) = 1;
         if length(a) == 2
             icc(ind_capex) = eco.(string(a(1))).(string(a(2)));
+            icc_name{ind_capex} = a{1};
         elseif length(a) == 3
             icc(ind_capex) = eco.(string(a(1))).(string(a(2))).(string(a(3)));
+            icc_name{ind_capex} = strcat([a{1},'.',a{2}]);
         end
         eco.metrics.ICC = eco.metrics.ICC + icc(ind_capex);
         LCoE_contr(ind) = icc(ind_capex)* eco.metrics.CRF /eco.metrics.AEP;
-        LCoE_contr_name{ind} = icc_name{ind_capex};
+        LCoE_contr_name{ind} = [icc_name{ind_capex},'.capex'];
 
         ind_capex = ind_capex+1;
         
@@ -37,13 +39,15 @@ for ind = 1:length(PATH)
         OPEX_ind(ind) = 1;
         if length(a) == 2
             omc(ind_opex) = eco.(string(a(1))).(string(a(2)));
+            omc_name{ind_opex} = a{1};
         elseif length(a) == 3
             omc(ind_opex) = eco.(string(a(1))).(string(a(2))).(string(a(3)));
+            omc_name{ind_opex} = strcat([a{1},'.',a{2}]);
         end
 
         eco.metrics.OMC = eco.metrics.OMC + omc(ind_opex);
         LCoE_contr(ind) = omc(ind_opex)/eco.metrics.AEP;
-        LCoE_contr_name{ind} = omc_name{ind_opex};
+        LCoE_contr_name{ind} = [omc_name{ind_opex},'.opex'];
 
         ind_opex = ind_opex + 1;
     end

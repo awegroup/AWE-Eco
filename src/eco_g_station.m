@@ -1,26 +1,27 @@
 function eco = eco_g_station(inp,par,eco)
 
 global eco_settings
-%% Winch
-D_winch = par.gStation.winch.dwinch_dt * inp.tether.d;
-sigma_t = 1500;
-SF_dt = 1.1;
-SF_Lt = 1.1;
-
-if par.gStation.winch.material  == 1 % alluminium
-    t_winch = pi/4 * sigma_t/par.gStation.winch.sigma_al * inp.tether.d;
-    m_winch = pi/4/(D_winch^2 - (D_winch-2*t_winch)^2) * inp.tether.L * inp.tether.d/(D_winch*pi) * par.gStation.winch.rho_al * SF_dt * SF_Lt;
-    eco.gStation.winch.CAPEX = m_winch * par.gStation.winch.p_al;
-    
-elseif par.gStation.winch.material  == 2 % steal
-    t_winch = pi/4 * sigma_t/par.gStation.winch.sigma_st * inp.tether.d;
-    m_winch = pi/4/(D_winch^2 - (D_winch-2*t_winch)^2) * inp.tether.L * inp.tether.d/(D_winch*pi) * par.gStation.winch.rho_st * SF_dt * SF_Lt;
-    eco.gStation.winch.CAPEX = m_winch * par.gStation.winch.p_st;
-end
-eco.gStation.winch.OPEX = 0;
-
-%% Drivetrain
 if strcmp(eco_settings.power,'GG')
+    %% Winch
+    D_winch = par.gStation.winch.dwinch_dt * inp.tether.d;
+    sigma_t = 1500;
+    SF_dt = 1.1;
+    SF_Lt = 1.1;
+    
+    if par.gStation.winch.material  == 1 % alluminium
+        t_winch = pi/4 * sigma_t/par.gStation.winch.sigma_al * inp.tether.d;
+        m_winch = pi/4/(D_winch^2 - (D_winch-2*t_winch)^2) * inp.tether.L * inp.tether.d/(D_winch*pi) * par.gStation.winch.rho_al * SF_dt * SF_Lt;
+        eco.gStation.winch.CAPEX = m_winch * par.gStation.winch.p_al;
+        
+    elseif par.gStation.winch.material  == 2 % steal
+        t_winch = pi/4 * sigma_t/par.gStation.winch.sigma_st * inp.tether.d;
+        m_winch = pi/4/(D_winch^2 - (D_winch-2*t_winch)^2) * inp.tether.L * inp.tether.d/(D_winch*pi) * par.gStation.winch.rho_st * SF_dt * SF_Lt;
+        eco.gStation.winch.CAPEX = m_winch * par.gStation.winch.p_st;
+    end
+    eco.gStation.winch.OPEX = 0;
+    
+    %% Drivetrain
+    
     %% Electrical drivetrain
     if par.gStation.drivetrain_type == 1 % electric
         

@@ -59,8 +59,8 @@ if strcmp(eco_settings.input_model_file,'code')
           
           inp.system.E_ex_hacc = inp.system.E_rated_uc;
 
-          inp.kite.structure.m = 9.250207476900000e+03;
-          inp.kite.structure.A = 150;
+          inp.kite.structure.m = 1.397710089360000e+04;
+          inp.kite.structure.A = 200;
           
           inp.kite.f_repl = 0;
           

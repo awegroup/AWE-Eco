@@ -17,16 +17,14 @@ elseif strcmp(eco_settings.power,'FG')
 end
 sigma = min(max(inp.system.F_t' / (par.tether.f_At*t.A)), t.sigma_lim);
 
-sigma = 0.6e9;
-
 %% Tether life extimation due to bending
 if strcmp(eco_settings.power,'GG')
     exp = par.tether.a_1b - par.tether.a_2b * sigma/1e9;
     Nb = 10.^exp;
-    Deltat_cycle = 1/(8760*60); % 1min/year
-    
+%     Deltat_cycle = 1/(8760*60); % 1min/year
+    Deltat_cycle = 1/inp.system.Dt_cycle/8760/3600;
     L_bend = 1./(par.tether.N_bends * trapz(inp.atm.wind_range,inp.atm.gw./( Deltat_cycle*Nb )));
-    eco.tether.f_repl_bend = 1/L_bend/2; % 2 times correction factor
+    eco.tether.f_repl_bend = 1/L_bend/3; % 3 times correction factor
 end
 
 %% Tether life extimation due to creep

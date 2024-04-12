@@ -15,16 +15,16 @@ if strcmp(eco_settings.power,'GG')
 elseif strcmp(eco_settings.power,'FG')
     eco.tether.CAPEX  = par.tether.f_mt * (par.tether.p * t.A *par.tether.f_At * t.L * t.rho * (1+ par.tether.f_coat));
 end
-sigma = min(max(inp.system.F_t' / (par.tether.f_At*t.A)), t.sigma_lim*ones(size(inp.system.F_t')))';
+sigma = min(max(inp.system.F_t' / (par.tether.f_At*t.A)), t.sigma_lim);
 
 %% Tether life extimation due to bending
 if strcmp(eco_settings.power,'GG')
     exp = par.tether.a_1b - par.tether.a_2b * sigma/1e9;
     Nb = 10.^exp;
     Deltat_cycle = 1/(8760*60); % 1min/year
-    
+    Deltat_cycle 
     L_bend = 1./(par.tether.N_bends * trapz(inp.atm.wind_range,inp.atm.gw./( Deltat_cycle*Nb )));
-    eco.tether.f_repl_bend = 1/L_bend;
+    eco.tether.f_repl_bend = 1/L_bend/2; % 2 times correction factor
 end
 
 %% Tether life extimation due to creep

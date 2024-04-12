@@ -46,7 +46,7 @@ if strcmp(eco_settings.power,'GG')
         % Ultracapacitors
         eco.gStation.ultracap.CAPEX = par.gStation.ultracap.p * inp.system.E_rated_uc/1e3;
         if isfield(inp.system,'f_repl_uc')==0
-            inp.system.f_repl_uc = (8760 * trapz(inp.atm.wind_range,inp.atm.gw.* inp.system.E_ex_uc./inp.system.Dt_cycle ) /inp.system.E_rated_uc/1e3 )/par.gStation.ultracap.N;
+            inp.system.f_repl_uc = (8760 * trapz(inp.atm.wind_range,inp.atm.gw.* inp.system.E_ex_uc./inp.system.Dt_cycle) /inp.system.E_rated_uc)/par.gStation.ultracap.N;
         end
         eco.gStation.ultracap.OPEX = inp.system.f_repl_uc * eco.gStation.ultracap.CAPEX;
         

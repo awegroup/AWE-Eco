@@ -62,7 +62,8 @@ if strcmp(eco_settings.input_model_file,'code')
           inp.system.E_ex_uc = inp.system.E_rated_uc/2; % In reality should be a function of wind speed
           inp.system.Dt_cycle = 75/3600; % h
           
-          inp.system.E_ex_hacc = inp.system.E_rated_uc;
+          inp.system.E_rated_hacc = inp.system.E_rated_uc;
+          inp.system.E_ex_hacc    = inp.system.E_ex_uc;
 
           inp.kite.structure.m = 9.250207476900000e+03;
           inp.kite.structure.A = 150;
@@ -102,7 +103,8 @@ if strcmp(eco_settings.input_model_file,'code')
           inp.system.E_ex_uc = inp.system.E_rated_uc/2; % check
           inp.system.Dt_cycle = 60/3600; % h
           
-          inp.system.E_ex_hacc = inp.system.E_rated_uc;
+          inp.system.E_rated_hacc = inp.system.E_rated_uc;
+          inp.system.E_ex_hacc    = inp.system.E_ex_uc;
 
           inp.kite.structure.m = 4e2;
           inp.kite.structure.A = 15;

@@ -99,7 +99,7 @@ axes('Parent',thistab);
 icc_perc = icc/sum(icc)*100;
 t = 1;
 for q = 1:length(icc_perc)
-    if icc_perc(q)>3
+    if icc_perc(q)>2
         list_icc{t} = icc_name{q};
         pp_icc(t) = icc_perc(q);
         t = t+1;
@@ -137,7 +137,7 @@ pp_lcoe =[];
 t = 1;
 LCoE_contr_perc = (LCoE_contr/sum(LCoE_contr))*100;
 for q = 1:length(PATH)
-    if LCoE_contr_perc(q)>3
+    if LCoE_contr_perc(q)>2
         list_lcoe{t} = LCoE_contr_name{q};
         pp_lcoe(t) = LCoE_contr_perc(q);
         t = t+1;

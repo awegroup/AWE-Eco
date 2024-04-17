@@ -1,6 +1,9 @@
 classdef test_ecomodel_main < matlab.unittest.TestCase
     
   methods(Test)
+
+    function test_settings(testCase)
+    end
         function test_FG(testCase)
             
             addpath(genpath([pwd '\..\inputData']));

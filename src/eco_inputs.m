@@ -57,12 +57,13 @@ if strcmp(eco_settings.input_model_file,'code')
           inp.system.P = [0	0	0	0	87438.8853031594	253393.205748841	484332.048240857	755090.545996486	1114076.64124289	1405930.79083093	1670466.98327117	1903559.07568152	1999999.99857249	1999999.94760103	2000000.00000002	2000000.00000006	2000000.00106575	1999999.43299789	2000000.00027475	2000000.08302597	2000000.00296865	2000000.00016184	2000000.00002195	2000000.00001266	2000000.00000112];
           inp.system.P_rated = 2000*1000;
           
-          inp.system.E_rated_uc = 1.5*inp.system.P_rated * 60/3600; 
+          inp.system.E_rated_uc = 1.1*inp.system.P_rated * 25/3600; % Power which needs to be supplied during reel-in at rated wind speed
           %inp.system.f_repl_uc = 0.25;
-          inp.system.E_ex_uc = inp.system.E_rated_uc/2; % check
-          inp.system.Dt_cycle = 80/3600; % h
+          inp.system.E_ex_uc = inp.system.E_rated_uc/2; % In reality should be a function of wind speed
+          inp.system.Dt_cycle = 75/3600; % h
           
-          inp.system.E_ex_hacc = inp.system.E_rated_uc;
+          inp.system.E_rated_hacc = inp.system.E_rated_uc;
+          inp.system.E_ex_hacc    = inp.system.E_ex_uc;
 
           inp.kite.structure.m = 9.250207476900000e+03;
           inp.kite.structure.A = 150;
@@ -102,7 +103,8 @@ if strcmp(eco_settings.input_model_file,'code')
           inp.system.E_ex_uc = inp.system.E_rated_uc/2; % check
           inp.system.Dt_cycle = 60/3600; % h
           
-          inp.system.E_ex_hacc = inp.system.E_rated_uc;
+          inp.system.E_rated_hacc = inp.system.E_rated_uc;
+          inp.system.E_ex_hacc    = inp.system.E_ex_uc;
 
           inp.kite.structure.m = 4e2;
           inp.kite.structure.A = 15;

@@ -63,7 +63,7 @@ if strcmp(eco_settings.power,'GG')
         eco.gStation.pumpMotor.OPEX = par.gStation.pumpMotor.f_om * par.gStation.pumpMotor.p_2 * inp.system.P_out_rated/1e3;
         
         % Hydropneumatic accumulator bank
-        eco.gStation.hydAccum.CAPEX = par.gStation.hydAccum.p_1.* inp.system.E_ex_hacc/1e3;
+        eco.gStation.hydAccum.CAPEX = par.gStation.hydAccum.p_1.* inp.system.E_rated_hacc/1e3;
         eco.gStation.hydAccum.OPEX  = par.gStation.hydAccum.f_om *  par.gStation.hydAccum.p_2.* inp.system.E_ex_hacc/1e3;
         
         % Hydraulic motor

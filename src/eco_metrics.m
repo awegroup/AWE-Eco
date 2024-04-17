@@ -147,20 +147,30 @@ pie(pp_lcoe);
 legend(list_lcoe,'Location','westoutside');
 title(['LCoE = ',num2str(round(eco.metrics.LCoE)),' euro/MWh'])
 
-%% Plots for ppt
-figure()
+
+%% For AWEC ppt
+
+fig = figure;
+% Plot the first pie chart
+subplot(1,3,1); % 1 row, 3 columns, first subplot
 pie(pp_icc);
 legend(list_icc,'Location','southoutside');
 title(['ICC = ',num2str(round(eco.metrics.ICC/10^3)),' k euro'])
 
-figure()
+% Plot the second pie chart
+subplot(1,3,2); % 1 row, 3 columns, second subplot
 pie(pp_omc);
 legend(list_omc,'Location','southoutside');
 title(['OMC = ',num2str(round(eco.metrics.OMC/10^3)),' k euro/year'])
 
-figure()
+% Plot the third pie chart
+subplot(1,3,3); % 1 row, 3 columns, third subplot
 pie(pp_lcoe);
 legend(list_lcoe,'Location','southoutside');
 title(['LCoE = ',num2str(round(eco.metrics.LCoE)),' euro/MWh'])
+
+% Adjust the layout
+fig.Position(3:4) = [1200, 400]; % Set figure size (width, height) in pixels
+
 
 end

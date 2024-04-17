@@ -44,7 +44,7 @@ if strcmp(eco_settings.input_model_file,'code')
           % Wind resources
           inp.atm.wind_range = [1:1:25];
           atm.k = 2;
-          atm.A = 10;
+          atm.A = 9/gamma(1 + 1/atm.k);
           inp.atm.gw = atm.k/atm.A *(inp.atm.wind_range/atm.A).^(atm.k-1).*exp(-(inp.atm.wind_range/atm.A).^atm.k); % Wind distribution
           
           % Business related quantities

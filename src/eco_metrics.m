@@ -87,7 +87,7 @@ str_2_print = [str_2_print,'LPoE = ',num2str(round(eco.metrics.LPoE)),' euro/MWh
 str_2_print = [str_2_print,'NPV = ',num2str(round(eco.metrics.NPV/1e3)),' k euro',' \n '];
 str_2_print = [str_2_print,'ICC = ',num2str(round(eco.metrics.ICC/1e3)),' k euro',' \n '];
 str_2_print = [str_2_print,'OMC = ',num2str(round(eco.metrics.OMC/1e3)),' k euro/y',' \n '];
-str_2_print = [str_2_print,'Profit = ',num2str(round(eco.metrics.Pi/1e3)),' k euro/y',' \n '];
+str_2_print = [str_2_print,'Profit = ',num2str(round(eco.metrics.Pi/1e3)),' k euro',' \n '];
 text(0,1,compose(str_2_print),'HorizontalAlignment','Left', 'VerticalAlignment','Top','interpreter','latex')
 axis off
 
@@ -96,12 +96,12 @@ warning off
 
 thistab = uitab(tg,'Title','ICC'); % build iith tab
 axes('Parent',thistab); 
- 
+icc_perc = icc/sum(icc)*100;
 t = 1;
-for q = 1:length(icc)
-    if icc(q)>0
+for q = 1:length(icc_perc)
+    if icc_perc(q)>3
         list_icc{t} = icc_name{q};
-        pp_icc(t) = icc(q);
+        pp_icc(t) = icc_perc(q);
         t = t+1;
     end
 end
@@ -135,15 +135,42 @@ axes('Parent',thistab); %
 list_lcoe = [];
 pp_lcoe =[];
 t = 1;
+LCoE_contr_perc = (LCoE_contr/sum(LCoE_contr))*100;
 for q = 1:length(PATH)
-    if LCoE_contr(q)>0
+    if LCoE_contr_perc(q)>3
         list_lcoe{t} = LCoE_contr_name{q};
-        pp_lcoe(t) = LCoE_contr(q);
+        pp_lcoe(t) = LCoE_contr_perc(q);
         t = t+1;
     end
 end
 pie(pp_lcoe);
 legend(list_lcoe,'Location','westoutside');
 title(['LCoE = ',num2str(round(eco.metrics.LCoE)),' euro/MWh'])
+
+
+%% For AWEC ppt
+
+fig = figure;
+% Plot the first pie chart
+subplot(1,3,1); % 1 row, 3 columns, first subplot
+pie(pp_icc);
+legend(list_icc,'Location','southoutside');
+title(['ICC = ',num2str(round(eco.metrics.ICC/10^3)),' k euro'])
+
+% Plot the second pie chart
+subplot(1,3,2); % 1 row, 3 columns, second subplot
+pie(pp_omc);
+legend(list_omc,'Location','southoutside');
+title(['OMC = ',num2str(round(eco.metrics.OMC/10^3)),' k euro/year'])
+
+% Plot the third pie chart
+subplot(1,3,3); % 1 row, 3 columns, third subplot
+pie(pp_lcoe);
+legend(list_lcoe,'Location','southoutside');
+title(['LCoE = ',num2str(round(eco.metrics.LCoE)),' euro/MWh'])
+
+% Adjust the layout
+fig.Position(3:4) = [1200, 400]; % Set figure size (width, height) in pixels
+
 
 end

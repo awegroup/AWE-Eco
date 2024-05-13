@@ -25,6 +25,7 @@ par = eco_import_cost_par;
 
 %% Display outputs
 disp(['LCoE = ',num2str(round(eco.metrics.LCoE)),' eur/MWh'])
+disp(['CoVE = ',num2str(round(eco.metrics.CoVE)),' eur/MWh'])
 disp(['LRoE = ',num2str(round(eco.metrics.LRoE)),' eur/MWh'])
 disp(['LPoE = ',num2str(round(eco.metrics.LPoE)),' eur/MWh'])
 disp(['NPV = ',num2str(round(eco.metrics.NPV/1e3)),' k eur'])

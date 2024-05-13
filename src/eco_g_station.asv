@@ -13,7 +13,7 @@ switch  eco_settings.power
         switch par.gStation.winch.material
             case 1 % alluminium
                 t_winch = pi/4 * sigma_t/par.gStation.winch.sigma_al * inp.tether.d;
-                m_winch = pi/4*(D_winch^2 - (D_winch-2*t_winch)^2) * inp.tether.L * inp.tether.d/(D_winch*pi) * par.gStation.winch.rho_al * SF_dt * SF_Lt;
+                m_winch = pi/4/(D_winch^2 - (D_winch-2*t_winch)^2) * inp.tether.L * inp.tether.d/(D_winch*pi) * par.gStation.winch.rho_al * SF_dt * SF_Lt;
                 eco.gStation.winch.CAPEX = m_winch * par.gStation.winch.p_al;
                 
             case 2 % steal
@@ -98,7 +98,7 @@ switch  eco_settings.power
                 eco.gStation.winch.CAPEX = m_winch * par.gStation.winch.p_al;
                 
             case 2 % steal
-                t_winch = inp.tether.d;
+                t_winch = inp.tether.d/5;
                 m_winch = pi/4*(D_winch^2 - (D_winch-2*t_winch)^2) * inp.tether.L * inp.tether.d/(D_winch*pi) * par.gStation.winch.rho_st * SF_dt * SF_Lt;
                 eco.gStation.winch.CAPEX = m_winch * par.gStation.winch.p_st;
         end

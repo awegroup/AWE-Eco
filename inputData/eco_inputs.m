@@ -102,7 +102,7 @@ switch eco_settings.input_model_file
                         inp.system.P = 3/4*[21496.0471473482,41246.4942079856,69966.0193058485,108887.503260755,156932.246230542,198576.031463368,198565.375606173,198114.942308234,197641.383532483,197199.181237688,196755.860610617,195920.800890573,195135.252500918,174603.698597567,143719.204086628];
                         inp.system.P_rated = max(inp.system.P);
                         
-                        inp.system.E_rated_uc = 1.5*inp.system.P_rated * 40/3600;
+                        inp.system.E_rated_uc = 1.5*inp.system.P_rated * 40/3600/1e3;
                         inp.system.f_repl_uc = 0.25;
                         inp.system.E_ex_uc = inp.system.E_rated_uc/2; % check
                         inp.system.Dt_cycle = 60/3600; % h

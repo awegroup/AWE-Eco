@@ -10,7 +10,7 @@ In this folder, the inputs data can be defined in an Excel file or in a MATLAB f
 # Reference
 Rishikesh Joshi and Filippo Trevisi (2024) "Reference Economic Model for Airborne Wind Energy Systems" (Version 1). IEA Wind TCP Task 48. https://doi.org/10.5281/zenodo.10959930
 
-You can access the newest version at the link \url{https://doi.org/10.5281/zenodo.8114627} 
+You can access the newest version here - https://doi.org/10.5281/zenodo.8114627
 
 # Licence
 This project is licensed under the MIT License - see the LICENSE file for details.

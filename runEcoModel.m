@@ -8,7 +8,7 @@ addpath(genpath([pwd '\src']));
 
 global eco_settings
 
-%%
+%% Inputs
 eco_settings.input_cost_file = 'Eco_GG_fixed.xlsx'; % set the input file
 eco_settings.input_model_file = 'code'; % code || set the input file
 eco_settings.power = 'GG';  % FG || GG 

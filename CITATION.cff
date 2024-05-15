@@ -10,5 +10,8 @@ authors:
     affiliation: Polytechnic University of Milan
     orcid: 
 title: EcoModel
+year: 2024
+version: 0.1.0
+doi:
 repository-code: https://github.com/awegroup/EcoModel
 license: MIT

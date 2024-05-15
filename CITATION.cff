@@ -1,11 +1,14 @@
 cff-version: 1.2.0
-message: If you use this software, please cite it as below.
+message: If you use this software, please cite the repository and the reference report.
 authors:
   - family-names: Joshi
     given-names: Rishikesh 
+    affiliation: Delft University of Technology
+    orcid: 
   - family-names: Trevisi
     given-names: Filippo
+    affiliation: Polytechnic University of Milan
+    orcid: 
 title: EcoModel
 repository-code: https://github.com/awegroup/EcoModel
 license: MIT
-    

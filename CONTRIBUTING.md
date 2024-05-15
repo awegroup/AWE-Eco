@@ -1,6 +1,6 @@
 # Contributing
 
-This is an active repository and hence we invite developers to contribute in developing this model further. The contribution guidelines are based on the guidelines given in [this](https://github.com/matchms/matchms/blob/master/CONTRIBUTING.md) example. 
+This is an active repository and hence we invite developers to contribute in developing this model further.
 
 A contribution can be one of the following cases:
 
@@ -10,7 +10,6 @@ A contribution can be one of the following cases:
 4. you want to make a new release of the code base.
 
 The sections below outline the steps in each case.
-
 
 ## You have a question
 
@@ -38,4 +37,14 @@ The sections below outline the steps in each case.
 
 ## You want to make a new release of the code base
 
-To create release you need write permission on the repository. Check and contact the authors listed in `citation.cff` and/or `README.md`.
+To create release you need write permission on the repository.
+
+1. Check author list in `Citation.cff`
+1. Update the `CHANGELOG.md` to include changes made
+1. Goto [GitHub release page](https://github.com/awegroup/EcoModel/releases)
+1. Press Create a new release button
+1. Fill version, title and description field
+1. Press the Publish Release button
+
+## Acknowledgements
+The contribution guidelines are based on the guidelines given in [this](https://github.com/matchms/matchms/blob/master/CONTRIBUTING.md) example.

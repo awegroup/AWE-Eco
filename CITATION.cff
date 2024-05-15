@@ -1,15 +1,13 @@
 cff-version: 1.2.0
 message: If you use this software, please cite it as below.
-title: Reference Economic Model for Airborne Wind Energy Systems
 authors:
   - family-names: Joshi
     given-names: Rishikesh
+	orcid: 
   - family-names: Trevisi
     given-names: Filippo
-year: 2024
-doi: 
-license: MIT
+	orcid: 
+title: EcoModel
 repository-code: 
-citation:
-  - text: Rishikesh Joshi and Filippo Trevisi (2024) "Reference Economic Model for Airborne Wind Energy Systems" [Software]. IEA Wind TCP Task 48.
+license: MIT
     

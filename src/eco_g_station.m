@@ -5,21 +5,18 @@ global eco_settings
 switch  eco_settings.power
     case 'GG'
         %% Winch
-        D_winch = par.gStation.winch.dwinch_dt * inp.tether.d;
-        sigma_t = 1500;
-        SF_dt = 1.1;
-        SF_Lt = 1.1;
+        eco.gStation.winch.D = par.gStation.winch.dwinch_dt * inp.tether.d;
         
         switch par.gStation.winch.material
             case 1 % alluminium
-                t_winch = pi/4 * sigma_t/par.gStation.winch.sigma_al * inp.tether.d;
-                m_winch = pi/4*(D_winch^2 - (D_winch-2*t_winch)^2) * inp.tether.L * inp.tether.d/(D_winch*pi) * par.gStation.winch.rho_al * SF_dt * SF_Lt;
-                eco.gStation.winch.CAPEX = m_winch * par.gStation.winch.p_al;
+                eco.gStation.winch.t = pi/4 * par.tether.sigma/par.gStation.winch.sigma_al * inp.tether.d;
+                eco.gStation.winch.m = pi/4*(eco.gStation.winch.D^2 - (eco.gStation.winch.D-2*eco.gStation.winch.t)^2) * inp.tether.L * inp.tether.d/(eco.gStation.winch.D*pi) * par.gStation.winch.rho_al * par.gStation.winch.SF_dt * par.gStation.winch.SF_Lt;
+                eco.gStation.winch.CAPEX = eco.gStation.winch.m * par.gStation.winch.p_al;
                 
             case 2 % steal
-                t_winch = pi/4 * sigma_t/par.gStation.winch.sigma_st * inp.tether.d;
-                m_winch = pi/4*(D_winch^2 - (D_winch-2*t_winch)^2) * inp.tether.L * inp.tether.d/(D_winch*pi) * par.gStation.winch.rho_st * SF_dt * SF_Lt;
-                eco.gStation.winch.CAPEX = m_winch * par.gStation.winch.p_st;
+                eco.gStation.winch.t = pi/4 * par.tether.sigma/par.gStation.winch.sigma_st * inp.tether.d;
+                eco.gStation.winch.m = pi/4*(eco.gStation.winch.D^2 - (eco.gStation.winch.D-2*eco.gStation.winch.t)^2) * inp.tether.L * inp.tether.d/(eco.gStation.winch.D*pi) * par.gStation.winch.rho_st * par.gStation.winch.SF_dt * par.gStation.winch.SF_Lt;
+                eco.gStation.winch.CAPEX = eco.gStation.winch.m * par.gStation.winch.p_st;
         end
         eco.gStation.winch.OPEX = 0;
         
@@ -32,8 +29,8 @@ switch  eco_settings.power
                     case 1
                         eco.gStation.gearbox.CAPEX = par.gStation.gearbox.one.p * inp.system.P_out_rated/1e3;
                     case 2
-                        m_gb = par.gStation.gearbox.two.k * (max(inp.system.F_t)*D_winch/2/1e3)^par.gStation.gearbox.two.b; % check with Rishi
-                        eco.gStation.gearbox.CAPEX = par.gStation.gearbox.two.p * m_gb;
+                        eco.gStation.gearbox.m = par.gStation.gearbox.two.k * (max(inp.system.F_t)*eco.gStation.winch.D/2/1e3)^par.gStation.gearbox.two.b; 
+                        eco.gStation.gearbox.CAPEX = par.gStation.gearbox.two.p * eco.gStation.gearbox.m;
                 end
                 eco.gStation.gearbox.OPEX = 0;
                 
@@ -42,17 +39,17 @@ switch  eco_settings.power
                     case 1
                         eco.gStation.gen.CAPEX = par.gStation.gen.one.p * inp.system.P_out_rated/1e3;
                     case 2
-                        m_gen = par.gStation.gen.two.k * inp.system.P_out_rated/1e3 + par.gStation.gen.two.b;
-                        eco.gStation.gen.CAPEX = par.gStation.gen.two.p * m_gen;
+                        eco.gStation.gen.m = par.gStation.gen.two.k * inp.system.P_out_rated/1e3 + par.gStation.gen.two.b;
+                        eco.gStation.gen.CAPEX = par.gStation.gen.two.p * eco.gStation.gen.m;
                 end
                 eco.gStation.gen.OPEX = 0;
                 
                 % Ultracapacitors
-                eco.gStation.ultracap.CAPEX = par.gStation.ultracap.p * inp.system.E_rated_uc;
-                if isfield(inp.system,'f_repl_uc')==0
-                    inp.system.f_repl_uc = (8760 * trapz(inp.atm.wind_range,inp.atm.gw.* inp.system.E_ex_uc./inp.system.Dt_cycle) /inp.system.E_rated_uc)/par.gStation.ultracap.N;
+                eco.gStation.ultracap.CAPEX = par.gStation.ultracap.p * inp.gStation.uc.E_rated;
+                if inp.gStation.uc.f_repl<0
+                    inp.gStation.uc.f_repl = (8760 * trapz(inp.atm.wind_range,inp.atm.gw.* inp.gStation.uc.E_ex./inp.system.Dt_cycle) /inp.gStation.uc.E_rated)/par.gStation.ultracap.N;
                 end
-                eco.gStation.ultracap.OPEX = inp.system.f_repl_uc * eco.gStation.ultracap.CAPEX;
+                eco.gStation.ultracap.OPEX = inp.gStation.uc.f_repl * eco.gStation.ultracap.CAPEX;
                 
                 % Power converters
                 eco.gStation.powerConv.CAPEX = par.gStation.powerConv.p * (inp.system.P_rated + inp.system.P_out_rated)/1e3;
@@ -63,23 +60,23 @@ switch  eco_settings.power
                 
                 % pump Motor
                 eco.gStation.pumpMotor.CAPEX = par.gStation.pumpMotor.p_1 * inp.system.P_out_rated/1e3;
-                eco.gStation.pumpMotor.OPEX = par.gStation.pumpMotor.f_om * par.gStation.pumpMotor.p_2 * inp.system.P_out_rated/1e3;
+                eco.gStation.pumpMotor.OPEX = inp.gStation.pumpMotor.f_repl * par.gStation.pumpMotor.p_2 * inp.system.P_out_rated/1e3;
                 
                 % Hydropneumatic accumulator bank
-                eco.gStation.hydAccum.CAPEX = par.gStation.hydAccum.p_1.* inp.system.E_rated_hacc/1e3;
-                eco.gStation.hydAccum.OPEX  = par.gStation.hydAccum.f_om *  par.gStation.hydAccum.p_2.* inp.system.E_ex_hacc/1e3;
+                eco.gStation.hydAccum.CAPEX = par.gStation.hydAccum.p_1.* inp.gStation.hydAccum.E_rated/1e3;
+                eco.gStation.hydAccum.OPEX  = inp.gStation.hydAccum.f_repl *  par.gStation.hydAccum.p_2.* inp.gStation.hydAccum.E_ex/1e3;
                 
                 % Hydraulic motor
                 eco.gStation.hydMotor.CAPEX = par.gStation.hydMotor.p_1 * inp.system.P_rated/1e3;
-                eco.gStation.hydMotor.OPEX = par.gStation.hydMotor.f_om *  par.gStation.hydMotor.p_2 * inp.system.P_rated/1e3;
+                eco.gStation.hydMotor.OPEX = inp.gStation.hydMotor.f_repl *  par.gStation.hydMotor.p_2 * inp.system.P_rated/1e3;
                 
                 % Electric generator
                 switch par.gStation.gen.approach
                     case 1
                         eco.gStation.gen.CAPEX = par.gStation.gen.one.p * inp.system.P_rated/1e3;
                     case 2
-                        m_gen = par.gStation.gen.two.k * inp.system.P_rated/1e3 + par.gStation.gen.two.b;
-                        eco.gStation.gen.CAPEX = par.gStation.gen.two.p * m_gen;
+                        eco.gStation.gen.m = par.gStation.gen.two.k * inp.system.P_rated/1e3 + par.gStation.gen.two.b;
+                        eco.gStation.gen.CAPEX = par.gStation.gen.two.p * eco.gStation.gen.m;
                 end
                 eco.gStation.gen.OPEX = 0;
                 
@@ -87,31 +84,31 @@ switch  eco_settings.power
         
     case 'FG'
         %% Winch
-        D_winch = par.gStation.winch.dwinch_dt * inp.tether.d;
-        SF_dt = 1.1;
-        SF_Lt = 1.1;
+        eco.gStation.winch.D = par.gStation.winch.dwinch_dt * inp.tether.d;
         
         switch par.gStation.winch.material
             case 1 % alluminium
-                t_winch = inp.tether.d;
-                m_winch = pi/4*(D_winch^2 - (D_winch-2*t_winch)^2) * inp.tether.L * inp.tether.d/(D_winch*pi) * par.gStation.winch.rho_al * SF_dt * SF_Lt;
-                eco.gStation.winch.CAPEX = m_winch * par.gStation.winch.p_al;
+                eco.gStation.winch.t = inp.tether.d;
+                eco.gStation.winch.m = pi/4*(eco.gStation.winch.D^2 - (eco.gStation.winch.D-2*eco.gStation.winch.t)^2) * inp.tether.L * inp.tether.d/(eco.gStation.winch.D*pi) * par.gStation.winch.rho_al * par.gStation.winch.SF_dt * par.gStation.winch.SF_Lt;
+                eco.gStation.winch.CAPEX = eco.gStation.winch.m * par.gStation.winch.p_al;
                 
             case 2 % steal
-                t_winch = inp.tether.d;
-                m_winch = pi/4*(D_winch^2 - (D_winch-2*t_winch)^2) * inp.tether.L * inp.tether.d/(D_winch*pi) * par.gStation.winch.rho_st * SF_dt * SF_Lt;
-                eco.gStation.winch.CAPEX = m_winch * par.gStation.winch.p_st;
+                eco.gStation.winch.t = inp.tether.d;
+                eco.gStation.winch.m = pi/4*(eco.gStation.winch.D^2 - (eco.gStation.winch.D-2*eco.gStation.winch.t)^2) * inp.tether.L * inp.tether.d/(eco.gStation.winch.D*pi) * par.gStation.winch.rho_st * par.gStation.winch.SF_dt * par.gStation.winch.SF_Lt;
+                eco.gStation.winch.CAPEX = eco.gStation.winch.m * par.gStation.winch.p_st;
         end
         eco.gStation.winch.OPEX = 0;
         
         %% Ultracapacitors
-        eco.gStation.ultracap.CAPEX = par.gStation.ultracap.p * inp.system.E_rated_uc;
-        if isfield(inp.system,'f_repl_uc')==0
-            lambda = 7;
-            R0 = 5*inp.kite.structure.b;
-            inp.system.f_repl_uc = 8760 * trapz(inp.atm.wind_range,inp.atm.gw.* inp.atm.wind_range .* lambda /(2*pi*R0) ) /par.gStation.ultracap.N;
+        eco.gStation.ultracap.CAPEX = par.gStation.ultracap.p * inp.gStation.uc.E_rated;
+         if inp.gStation.uc.f_repl<0
+            inp.gStation.uc.f_repl = 8760 * trapz(inp.atm.wind_range,inp.atm.gw.* inp.atm.wind_range .* inp.system.lambda /(2*pi*inp.system.R0) ) /par.gStation.ultracap.N;
         end
-        eco.gStation.ultracap.OPEX = inp.system.f_repl_uc * eco.gStation.ultracap.CAPEX;
+        eco.gStation.ultracap.OPEX = inp.gStation.uc.f_repl * eco.gStation.ultracap.CAPEX;
+        
+        %% Power converters
+        eco.gStation.powerConv.CAPEX = 2 * par.gStation.powerConv.p * inp.system.P_rated/1e3;
+        eco.gStation.powerConv.OPEX = 0;
         
 end
 

@@ -1,18 +1,20 @@
+%% Reference Economic Model for Airborne Wind Energy Systems
+%%
 clear; clear global;
 close all;
 clc
-%%
 
+%%
 addpath(genpath([pwd '\inputData']));
 addpath(genpath([pwd '\src']));
 
 global eco_settings
 
 %% Inputs
-eco_settings.input_cost_file = 'Eco_GG_fixed.xlsx'; % set the input file
+eco_settings.input_cost_file = 'Eco_GG_soft.xlsx'; % set the input file
 eco_settings.input_model_file = 'code'; % code || set the input file
 eco_settings.power = 'GG';  % FG || GG 
-eco_settings.wing = 'fixed';  % fixed || soft
+eco_settings.wing = 'soft';  % fixed || soft
 
 %% Import or create system to be evaluated
 inp = eco_inputs;
@@ -30,4 +32,4 @@ disp(['LRoE = ',num2str(round(eco.metrics.LRoE)),' eur/MWh'])
 disp(['LPoE = ',num2str(round(eco.metrics.LPoE)),' eur/MWh'])
 disp(['NPV = ',num2str(round(eco.metrics.NPV/1e3)),' k eur'])
 disp(['ICC = ',num2str(round(eco.metrics.ICC/1e3)),' k eur'])
-% disp(['Profit = ',num2str(round(eco.metrics.Pi/1e3)),' k eur/y'])
+disp(['Profit = ',num2str(round(eco.metrics.Pi/1e3)),' k eur/y'])

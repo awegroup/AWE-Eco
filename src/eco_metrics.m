@@ -5,12 +5,12 @@ T = inp.business.T;
 eco.metrics.CRF = r*(1+r)^T/((1+r)^T-1);
 
 eco.metrics.AEP = 8760 * trapz(inp.atm.wind_range,inp.system.P.*inp.atm.gw)/1e6; % MWh
-eco.metrics.CF = trapz(inp.atm.wind_range,inp.system.P.*inp.atm.gw)/inp.system.P_rated; % Capacity factor
-eco.metrics.p = 8760 * trapz(inp.atm.wind_range,(par.metrics.electricity.p_0 + par.metrics.electricity.p_1 * inp.atm.wind_range).*inp.system.P/1e6.*inp.atm.gw)/eco.metrics.AEP; % Revenues euros/year/MWh 
+eco.metrics.CF  = trapz(inp.atm.wind_range,inp.system.P.*inp.atm.gw)/inp.system.P_rated; % Capacity factor
+eco.metrics.p   = 8760 * trapz(inp.atm.wind_range,(par.metrics.electricity.p_0 + par.metrics.electricity.p_1 * inp.atm.wind_range).*inp.system.P/1e6.*inp.atm.gw)/eco.metrics.AEP; % Revenues euros/year/MWh 
 eco.metrics.p_hat = trapz(inp.atm.wind_range,(par.metrics.electricity.p_0 + par.metrics.electricity.p_1 * inp.atm.wind_range).*inp.atm.gw); % euros/MWh 
-eco.metrics.vf = eco.metrics.p/eco.metrics.p_hat; % - 
+eco.metrics.vf = eco.metrics.p/eco.metrics.p_hat; % value factor - 
 
-%%
+%% find all capex and opex and organize them
 PATH = structree(eco);
 CAPEX_ind = zeros(length(PATH),1);
 eco.metrics.ICC = 0;
@@ -79,12 +79,10 @@ eco.metrics.Pi   = eco.metrics.LPoE * eco.metrics.AEP;
 
 %%
 figure('units','normalized','outerposition',[0 0 1 1])
-tg = uitabgroup;
-%
-thistab = uitab(tg,'Title','outputs'); % build iith tab
-axes('Parent',thistab); 
+subplot(1,4,1); 
 
-str_2_print = '------------------------ Main economic performances ------------------------ \n ';
+hold on
+str_2_print = '-- Main economic performances - \n ';
 str_2_print = [str_2_print, 'CF = ',num2str(round(eco.metrics.CF,2)),' \n '];
 str_2_print = [str_2_print, 'LCoE = ',num2str(round(eco.metrics.LCoE)),' euro/MWh',' \n '];
 str_2_print = [str_2_print, 'CoVE = ',num2str(round(eco.metrics.CoVE)),' euro/MWh',' \n '];
@@ -97,11 +95,6 @@ str_2_print = [str_2_print,'Profit = ',num2str(round(eco.metrics.Pi/1e3)),' k eu
 text(0,1,compose(str_2_print),'HorizontalAlignment','Left', 'VerticalAlignment','Top','interpreter','latex')
 axis off
 
-%%
-warning off
-
-thistab = uitab(tg,'Title','ICC'); % build iith tab
-axes('Parent',thistab); 
 icc_perc = icc/sum(icc)*100;
 t = 1;
 for q = 1:length(icc_perc)
@@ -111,14 +104,12 @@ for q = 1:length(icc_perc)
         t = t+1;
     end
 end
-pie(pp_icc);
-legend(list_icc,'Location','westoutside');
 
+subplot(1,4,2); 
+pie(pp_icc);
+legend(list_icc,'Location','southoutside');
 title(['ICC = ',num2str(round(eco.metrics.ICC/10^3)),' k euro'])
- 
-%%
-thistab = uitab(tg,'Title','OMC'); % build iith tab
-axes('Parent',thistab); %
+
 
 list_omc = [];
 pp_omc =[];
@@ -130,14 +121,12 @@ for q = 1:length(omc)
         t = t+1;
     end
 end
-pie(pp_omc);
-legend(list_omc,'Location','westoutside');
-title(['OMC = ',num2str(round(eco.metrics.OMC/10^3)),' k euro/year'])
 
-%%
-thistab = uitab(tg,'Title','LCoE'); % build iith tab
-axes('Parent',thistab); %
- 
+subplot(1,4,3); 
+pie(pp_omc);
+legend(list_omc,'Location','southoutside');
+title(['OMC = ',num2str(round(eco.metrics.OMC/10^3)),' k euro/year'])
+%  
 list_lcoe = [];
 pp_lcoe =[];
 t = 1;
@@ -149,34 +138,11 @@ for q = 1:length(PATH)
         t = t+1;
     end
 end
-pie(pp_lcoe);
-legend(list_lcoe,'Location','westoutside');
-title(['LCoE = ',num2str(round(eco.metrics.LCoE)),' euro/MWh'])
 
-
-%% For AWEC ppt
-
-fig = figure;
-% Plot the first pie chart
-subplot(1,3,1); % 1 row, 3 columns, first subplot
-pie(pp_icc);
-legend(list_icc,'Location','southoutside');
-title(['ICC = ',num2str(round(eco.metrics.ICC/10^3)),' k euro'])
-
-% Plot the second pie chart
-subplot(1,3,2); % 1 row, 3 columns, second subplot
-pie(pp_omc);
-legend(list_omc,'Location','southoutside');
-title(['OMC = ',num2str(round(eco.metrics.OMC/10^3)),' k euro/year'])
-
-% Plot the third pie chart
-subplot(1,3,3); % 1 row, 3 columns, third subplot
+subplot(1,4,4); % 1 row, 4 columns
 pie(pp_lcoe);
 legend(list_lcoe,'Location','southoutside');
 title(['LCoE = ',num2str(round(eco.metrics.LCoE)),' euro/MWh'])
-
-% Adjust the layout
-fig.Position(3:4) = [1200, 400]; % Set figure size (width, height) in pixels
 
 
 end

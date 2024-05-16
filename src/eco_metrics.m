@@ -1,4 +1,4 @@
-function eco = eco_metrics(inp,par,eco)
+function [inp,par,eco] = eco_metrics(inp,par,eco)
 
 r = inp.business.r;
 T = inp.business.T;

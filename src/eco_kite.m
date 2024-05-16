@@ -1,4 +1,4 @@
-function eco = eco_kite(inp,par,eco)
+function [inp,par,eco] = eco_kite(inp,par,eco)
 global eco_settings
 %% Structure
 switch eco_settings.wing

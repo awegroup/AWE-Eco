@@ -1,4 +1,4 @@
-function eco = eco_g_station(inp,par,eco)
+function [inp,par,eco] = eco_g_station(inp,par,eco)
 
 global eco_settings
 

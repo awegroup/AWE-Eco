@@ -1,4 +1,4 @@
-function eco = eco_tether(inp,par,eco)
+function [inp,par,eco] = eco_tether(inp,par,eco)
 
 global eco_settings
 t = inp.tether;

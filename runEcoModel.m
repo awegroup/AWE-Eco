@@ -11,10 +11,10 @@ addpath(genpath([pwd '\src']));
 global eco_settings
 
 %% Inputs
-eco_settings.input_cost_file = 'Eco_GG_soft.xlsx'; % set the input file
+eco_settings.input_cost_file = 'Eco_GG_fixed.xlsx'; % set the input file
 eco_settings.input_model_file = 'code'; % code || set the input file
 eco_settings.power = 'GG';  % FG || GG 
-eco_settings.wing = 'soft';  % fixed || soft
+eco_settings.wing = 'fixed';  % fixed || soft
 
 %% Import or create system to be evaluated
 inp = eco_inputs;
@@ -23,7 +23,7 @@ inp = eco_inputs;
 par = eco_import_cost_par;
 
 %% Evaluate costs
-[eco] = eco_main(inp,par);
+[inp,par,eco] = eco_main(inp,par);
 
 %% Display outputs
 disp(['LCoE = ',num2str(round(eco.metrics.LCoE)),' eur/MWh'])

@@ -39,7 +39,7 @@ The sections below outline the steps in each case.
 
 To create release you need write permission on the repository.
 
-1. Check author list in `Citation.cff`
+1. Check and contact the authors listed in `CITATION.cff`
 1. Update the `CHANGELOG.md` to include changes made
 1. Goto [GitHub release page](https://github.com/awegroup/EcoModel/releases)
 1. Press Create a new release button

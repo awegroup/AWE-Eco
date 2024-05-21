@@ -47,7 +47,7 @@ switch  eco_settings.power
                 % Ultracapacitors
                 eco.gStation.ultracap.CAPEX = par.gStation.ultracap.p * inp.gStation.uc.E_rated;
                 if inp.gStation.uc.f_repl<0
-                    inp.gStation.uc.f_repl = (8760 * trapz(inp.atm.wind_range,inp.atm.gw.* inp.gStation.uc.E_ex./inp.system.Dt_cycle) /inp.gStation.uc.E_rated)/par.gStation.ultracap.N;
+                    inp.gStation.uc.f_repl = (8760 * trapz(inp.atm.wind_range,inp.atm.gw.* fillmissing(inp.gStation.uc.E_ex./(inp.system.Dt_cycle./3600),'constant',0)) /inp.gStation.uc.E_rated)/par.gStation.ultracap.N;
                 end
                 eco.gStation.ultracap.OPEX = inp.gStation.uc.f_repl * eco.gStation.ultracap.CAPEX;
                 

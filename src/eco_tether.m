@@ -18,8 +18,9 @@ switch  eco_settings.power
     case 'GG'
         exp = par.tether.a_1b - par.tether.a_2b * sigma/1e9;
         Nb = 10.^exp;
-        Deltat_cycle = 1/inp.system.Dt_cycle/8760/3600;
-        L_bend = 1./(par.tether.N_bends * trapz(inp.atm.wind_range,inp.atm.gw./( Deltat_cycle*Nb )));
+        int = inp.atm.gw./(inp.system.Dt_cycle./8760./3600.*Nb);
+        int(isinf(int)) = 0;
+        L_bend = 1./(par.tether.N_bends * trapz(inp.atm.wind_range,int));
         eco.tether.f_repl_bend = 1/L_bend/3; % 3 times correction factor
 end
 %% Tether life extimation due to creep

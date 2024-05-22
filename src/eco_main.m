@@ -25,7 +25,7 @@ function [inp,par,eco] = eco_main(inp, par)
   
   %% Ground station
 
-  [inp,par,eco] = eco_g_station(inp,par,eco);
+  [inp,par,eco] = eco_gStation(inp,par,eco);
   
   %% BoS
 

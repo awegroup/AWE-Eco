@@ -33,12 +33,21 @@ function [inp,par,eco] = eco_kite(inp,par,eco)
 
   switch eco_settings.power
       case 'FG'
-          eco.kite.gen.CAPEX = par.kite.obgen.p * inp.system.P_rated/1e3;  
-          eco.kite.gen.OPEX  = 0;
+        % Onboard generators
+        eco.kite.obGen.CAPEX = par.kite.obGen.p * inp.system.P_e_rated/1e3;  
+        eco.kite.obGen.OPEX  = 0;
+
+        % Onboard batteries
+        
           
       case 'GG'
-          eco.kite.obGen.CAPEX  = par.kite.obgen.p * (inp.kite.prop.P + inp.kite.obgen.P)/1e3;
-          eco.kite.obBatt.CAPEX = par.kite.obBatt.p * inp.kite.batt.E;
+        % Onboard generators
+        eco.kite.obGen.CAPEX  = par.kite.obGen.p * inp.kite.obGen.P/1e3;
+        eco.kite.obGen.OPEX   = 0;
+          
+        % Onboard batteries
+        eco.kite.obBatt.CAPEX = par.kite.obBatt.p * inp.kite.obBatt.E;
+        eco.kite.obBatt.CAPEX = 0;
           
   end
   

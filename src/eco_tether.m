@@ -14,7 +14,7 @@ function [inp,par,eco] = eco_tether(inp,par,eco)
       case 'FG'
           eco.tether.CAPEX  = par.tether.f_mt * (par.tether.p * t.A *par.tether.f_At * t.L * t.rho * (1+ par.tether.f_coat));
   end
-  sigma = min(inp.system.F_t' / (par.tether.f_At*t.A), par.tether.sigma)';
+  sigma = min(inp.system.F_t' / (par.tether.f_At*t.A), par.tether.sigma_max)';
   
   %% Tether life extimation due to bending - Relevant for GG
 
@@ -22,9 +22,9 @@ function [inp,par,eco] = eco_tether(inp,par,eco)
       case 'GG'
           exp = par.tether.a_1b - par.tether.a_2b * sigma/1e9;
           Nb = 10.^exp;
-          int = inp.atm.gw./(inp.system.Dt_cycle./8760./3600.*Nb);
-          int(isinf(int)) = 0;
-          L_bend = 1./(par.tether.N_bends * trapz(inp.atm.wind_range,int));
+          integral_term = inp.atm.gw./(inp.system.Dt_cycle./8760./3600.*Nb);
+          integral_term(isinf(integral_term)) = 0;
+          L_bend = 1./(par.tether.N_bends * trapz(inp.atm.wind_range,integral_term));
           eco.tether.f_repl_bend = 1/L_bend/3; % 3 times correction factor
   end
 
@@ -48,7 +48,7 @@ function [inp,par,eco] = eco_tether(inp,par,eco)
   
   %% OPEX
   
-  if 1/eco.tether.f_repl > inp.business.T
+  if 1/eco.tether.f_repl > inp.business.N_y
       eco.tether.f_repl = 0;
   end
   eco.tether.OPEX = eco.tether.f_repl * eco.tether.CAPEX ;

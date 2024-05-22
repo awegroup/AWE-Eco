@@ -1,8 +1,8 @@
-function inp = eco_inputs
+function inp = eco_system_inputs_example
 
   global eco_settings
 
-  eco_settings.input_cost_file  = 'Eco_GG_fixed.xlsx'; % set the input file
+  eco_settings.input_cost_file  = 'eco_cost_inputs_GG_fixed.xlsx'; % set the input file
   eco_settings.input_model_file = 'code'; % code || set the input file
   eco_settings.power            = 'GG';  % FG || GG 
   eco_settings.wing             = 'fixed';  % fixed || soft

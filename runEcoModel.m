@@ -7,8 +7,11 @@ clear; clear global; close all; clc
 addpath(genpath([pwd '\inputData']));
 addpath(genpath([pwd '\src']));
 
-%% Run EcoModel
-[inp,par,eco] = eco_main();
+%% Import inputs
+inp = eco_system_inputs_example;
+
+%% Run EcoModel by parsing the inputs
+[inp,par,eco] = eco_main(inp);
 
 %% Display results
 eco_displayResults(eco)

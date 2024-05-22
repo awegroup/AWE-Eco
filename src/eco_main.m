@@ -10,10 +10,9 @@
 
 % License: MIT
 
-function [inp,par,eco] = eco_main()  
+function [inp,par,eco] = eco_main(inp)  
   
-  % Import system data
-  inp = eco_inputs;
+  
   
   % Import cost model parameters
   par = eco_import_cost_par;

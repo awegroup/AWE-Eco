@@ -4,7 +4,7 @@ function par = eco_import_cost_par
 
   global eco_settings
   
-  %% Import from excel
+  % Import from excel
   sheets = {'kite','tether','gStation','BoS','BoP','metrics'};
   for q = 1:length(sheets)
       cell = readcell(eco_settings.input_cost_file,'Sheet',sheets{q},'Range','A1:G50');
@@ -19,7 +19,6 @@ function par = eco_import_cost_par
               n_sub_str = length(sub_str{1});
               str = char(cell(i,1));
               
-              %%
               if n_sub_str == 0
                   
                   if ischar(cell{i,2})

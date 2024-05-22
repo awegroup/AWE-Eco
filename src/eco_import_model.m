@@ -2,7 +2,8 @@ function inp = eco_import_model
 % Import input file and organize in structures for speeding up the code.
 %%
 global eco_settings
-%% Import from excel
+
+% Import from excel
 sheets = {'kite','tether','g_station','LLA','system','business'};
 for q = 1:length(sheets)
     cell = readcell(eco_settings.input_model_file,'Sheet',sheets{q},'Range','A1:G30');
@@ -17,9 +18,9 @@ for q = 1:length(sheets)
             n_sub_str = length(sub_str{1});
             str = char(cell(i,1));
             
-            %%
+            
             if n_sub_str == 0
-                %%                
+                                
                 if ischar(cell{i,2})
                     inp.(sheets{q}).(str) = str2num(cell{i,2}); %#ok<*ST2NM>
                 else
@@ -38,7 +39,7 @@ for q = 1:length(sheets)
                 end
                 
             elseif n_sub_str == 1
-                %%
+                
                 if ischar(cell{i,2})
                      inp.(sheets{q}).(str(1:sub_str{1}(1)-1)).(str(sub_str{1}(1)+1:end)) = str2num(cell{i,2}); %#ok<*ST2NM>
                 else

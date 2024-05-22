@@ -1,9 +1,13 @@
 function inp = eco_inputs
 
   global eco_settings
+
+  eco_settings.input_cost_file  = 'Eco_GG_fixed.xlsx'; % set the input file
+  eco_settings.input_model_file = 'code'; % code || set the input file
+  eco_settings.power            = 'GG';  % FG || GG 
+  eco_settings.wing             = 'fixed';  % fixed || soft
   
   %% Common parameters
-
   % Wind conditions
   atm.k = 2;
   atm.A = 8;
@@ -16,7 +20,6 @@ function inp = eco_inputs
   inp.business.DtoE    = 70/30; % Debt-Equity-ratio
   
   %% Topology specific parameters
- 
   switch eco_settings.input_model_file
       case 'code'
   
@@ -130,17 +133,4 @@ function inp = eco_inputs
       otherwise
           inp = eco_import_model;     
   end
-  
-  %% Dependent computations
-
-  % Tether diameter
-  if isfield(inp.tether,'d')
-      inp.tether.A = pi/4*inp.tether.d^2;
-  elseif isfield(inp.tether,'A')
-      inp.tether.d = sqrt(4*inp.tether.A/pi);
-  end
-
-  % WACC
-  inp.business.r = inp.business.DtoE/(1+ inp.business.DtoE)*inp.business.r_d*(1-inp.business.TaxRate) + 1/(1+inp.business.DtoE)*inp.business.r_e;
-
 end

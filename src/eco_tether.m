@@ -2,11 +2,17 @@ function [inp,par,eco] = eco_tether(inp,par,eco)
 
   global eco_settings
 
+  % Tether cross sectional area
+  if isfield(inp.tether,'d')
+      inp.tether.A = pi/4*inp.tether.d^2;
+  elseif isfield(inp.tether,'A')
+      inp.tether.d = sqrt(4*inp.tether.A/pi);
+  end
+
   % For brevity in code
   t = inp.tether;
-  
-  %% CAPEX 
 
+  %% CAPEX 
   switch  eco_settings.power
       case 'GG'
           eco.tether.CAPEX = par.tether.p * t.A *par.tether.f_At* t.L * t.rho * (1+ par.tether.f_coat);
@@ -16,8 +22,8 @@ function [inp,par,eco] = eco_tether(inp,par,eco)
   end
   sigma = min(inp.system.F_t' / (par.tether.f_At*t.A), par.tether.sigma_max)';
   
-  %% Tether life extimation due to bending - Relevant for GG
-
+  %% OPEX
+  % Tether life extimation due to bending - Relevant for GG
   switch  eco_settings.power
       case 'GG'
           exp = par.tether.a_1b - par.tether.a_2b * sigma/1e9;
@@ -28,15 +34,13 @@ function [inp,par,eco] = eco_tether(inp,par,eco)
           eco.tether.f_repl_bend = 1/L_bend/3; % 3 times correction factor
   end
 
-  %% Tether life extimation due to creep - Relevant for FG
-
+  % Tether life extimation due to creep - Relevant for FG
   exp = polyval(par.tether.L_creep,sigma/1e9);
   L_creep = 10.^exp;
   life_creep = 1./(trapz(inp.atm.wind_range,inp.atm.gw./L_creep));
   eco.tether.f_repl_creep = 1/life_creep;
   
-  %% Set tether life to infinte is tether life > AWE operational years
-
+  % Set tether life to infinte is tether life > AWE operational years
   if inp.tether.f_repl < 0
       switch  eco_settings.power
           case 'GG'
@@ -45,8 +49,6 @@ function [inp,par,eco] = eco_tether(inp,par,eco)
               eco.tether.f_repl = eco.tether.f_repl_creep;
       end
   end
-  
-  %% OPEX
   
   if 1/eco.tether.f_repl > inp.business.N_y
       eco.tether.f_repl = 0;

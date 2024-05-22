@@ -10,33 +10,33 @@
 
 % License: MIT
 
-function [inp,par,eco] = eco_main(inp, par)
+function [inp,par,eco] = eco_main()  
+  
+  % Import system data
+  inp = eco_inputs;
+  
+  % Import cost model parameters
+  par = eco_import_cost_par;
 
-  % Defined structure
+  % Defined structure to store results
   eco = struct;
   
-  %% Kite
-
+  % Kite
   [inp,par,eco] = eco_kite(inp,par,eco);
   
-  %% Tether
-
+  % Tether
   [inp,par,eco] = eco_tether(inp,par,eco);
   
-  %% Ground station
-
+  % Ground station
   [inp,par,eco] = eco_gStation(inp,par,eco);
   
-  %% BoS
-
+  % BoS
   [inp,par,eco] = eco_BoS(inp,par,eco);
   
-  %% BoP
-
+  % BoP
   [inp,par,eco] = eco_BoP(inp,par,eco);
   
-  %% Compute metrics
-  
+  % Compute metrics
   [inp,par,eco] = eco_computeMetrics(inp,par,eco);
 
 end

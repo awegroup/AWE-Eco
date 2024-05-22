@@ -1,4 +1,4 @@
-function [inp,par,eco] = eco_g_station(inp,par,eco)
+function [inp,par,eco] = eco_gStation(inp,par,eco)
 
   global eco_settings
   
@@ -75,8 +75,7 @@ function [inp,par,eco] = eco_g_station(inp,par,eco)
                           eco.gStation.gen.m = par.gStation.gen.two.k * inp.system.P_e_rated/1e3 + par.gStation.gen.two.b;
                           eco.gStation.gen.CAPEX = par.gStation.gen.two.p * eco.gStation.gen.m;
                   end
-                  eco.gStation.gen.OPEX = 0;
-                  
+                  eco.gStation.gen.OPEX = 0;                  
           end
           
       case 'FG'
@@ -109,17 +108,14 @@ function [inp,par,eco] = eco_g_station(inp,par,eco)
   end
   
   %% Launch & land system
-
   eco.gStation.lls.CAPEX = 0;
   eco.gStation.lls.OPEX  = 0;
   
   %% Yaw system
-
   eco.gStation.yaw.CAPEX = 0;
   eco.gStation.yaw.OPEX  = 0;
   
   %% Control and communication unit
-
   eco.gStation.controlStation.CAPEX = 0;
   eco.gStation.controlStation.OPEX  = 0;
 

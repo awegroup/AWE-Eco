@@ -35,8 +35,8 @@ function [inp,par,eco] = eco_main(inp, par)
 
   [inp,par,eco] = eco_BoP(inp,par,eco);
   
-  %% Economic indicators
+  %% Compute metrics
   
-  [inp,par,eco] = eco_metrics(inp,par,eco);
+  [inp,par,eco] = eco_computeMetrics(inp,par,eco);
 
 end

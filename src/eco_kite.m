@@ -3,6 +3,11 @@ function [inp,par,eco] = eco_kite(inp,par,eco)
   global eco_settings
 
   %% Structure
+  % find wing area if wingspan and aspect ratio are provided
+  if isfield(inp.kite.structure,'b')
+      inp.kite.structure.A = inp.kite.structure.b^2/inp.kite.structure.AR; % m^2
+  end
+  
   switch eco_settings.wing
       case 'fixed'
           switch par.kite.structure.fixed.approach
@@ -19,18 +24,18 @@ function [inp,par,eco] = eco_kite(inp,par,eco)
           end
 
           % OPEX
-          eco.kite.structure.OPEX = inp.kite.structure.fixed.f_repl * eco.kite.structure.CAPEX; % Capex times replacement frequency
+          eco.kite.structure.OPEX = inp.kite.structure.f_repl * eco.kite.structure.CAPEX; % Capex times replacement frequency
           
       case 'soft'
           % CAPEX
           eco.kite.structure.CAPEX = (par.kite.structure.soft.p_fabric + par.kite.structure.soft.p_bridle ) * inp.kite.structure.A;
           
           % OPEX
-          if inp.kite.structure.soft.f_repl < 0
+          if inp.kite.structure.f_repl < 0
               LF = trapz(inp.atm.wind_range,inp.atm.gw.*inp.system.F_t./max(inp.system.F_t));
-              inp.kite.structure.soft.f_repl = LF/par.kite.structure.soft.L_str;
+              inp.kite.structure.f_repl = LF/par.kite.structure.soft.L_str;
           end
-          eco.kite.structure.OPEX = inp.kite.structure.soft.f_repl* eco.kite.structure.CAPEX; % Capex times replacement frequency
+          eco.kite.structure.OPEX = inp.kite.structure.f_repl* eco.kite.structure.CAPEX; % Capex times replacement frequency
   
   end
 

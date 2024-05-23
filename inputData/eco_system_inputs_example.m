@@ -2,10 +2,10 @@ function inp = eco_system_inputs_example
 
   global eco_settings
 
-  eco_settings.input_cost_file  = 'eco_cost_inputs_GG_fixed.xlsx'; % set the input file
-  eco_settings.input_model_file = 'code'; % code || set the input file
+  eco_settings.input_cost_file  = 'eco_cost_inputs_GG_soft'; % eco_cost_inputs_GG_fixed || eco_cost_inputs_FG || eco_cost_inputs_GG_soft || set the input file
+  eco_settings.input_model_file = 'eco_system_inputs_GG_soft_example'; % code || eco_system_inputs_GG_fixed_example || eco_system_inputs_FG_example || eco_system_inputs_GG_soft_example || set the input file
   eco_settings.power            = 'GG';  % FG || GG 
-  eco_settings.wing             = 'fixed';  % fixed || soft
+  eco_settings.wing             = 'soft';  % fixed || soft
   
   %% Common parameters
   % Wind conditions
@@ -34,17 +34,16 @@ function inp = eco_system_inputs_example
                   inp.kite.structure.m            = 122.5; % kg
                   inp.kite.structure.b            = 10;    % m
                   inp.kite.structure.AR           = 6; % -
-                  inp.kite.structure.A            = inp.kite.structure.b^2/inp.kite.structure.AR; % m^2
-                  inp.kite.structure.fixed.f_repl = 0; % 1/year
+                  inp.kite.structure.f_repl       = 0; % 1/year
                   
                   % Tether
                   inp.tether.d      = 1.6 *1e-3 * inp.kite.structure.b; % m
                   inp.tether.L      = 100; % m
                   inp.tether.rho    = 970; % kg/m^3
-                  inp.tether.f_repl = -1;
+                  inp.tether.f_repl = -1; 
                   
                   % System
-                  inp.system.F_t       = inp.tether.d^2/4*pi* [0.124572136342289,0.151797436838344,0.181460994246145,0.214172304028360,0.250094485666586,0.289217262316979,0.331480668302760,0.376825094990467,0.425204519064134,0.476587107759039,0.530951609064390,0.588284030406247,0.648575480469101,0.711819900342773,0.667172308938198,0.538286443708873,0.479418546822401,0.440125256353379,0.410771458547833,0.387467590011167,0.368260306087034,0.352050875661555,0.3,0.25]; % N
+                  inp.system.F_t       = inp.tether.d^2/4*pi* [0.124572136342289,0.151797436838344,0.181460994246145,0.214172304028360,0.250094485666586,0.289217262316979,0.331480668302760,0.376825094990467,0.425204519064134,0.476587107759039,0.530951609064390,0.588284030406247,0.648575480469101,0.711819900342773,0.667172308938198,0.538286443708873,0.479418546822401,0.440125256353379,0.410771458547833,0.387467590011167,0.368260306087034,0.352050875661555,0.3,0.25]*1e9; % N
                   inp.system.P_e_rated = 100e3; % W
                   inp.system.P_e_avg   = inp.system.P_e_rated * [0.0514836036930580,0.0740924523303653,0.101398515897930,0.133916653105838,0.172155839837058,0.216618610982057,0.267802451082606,0.326201238110832,0.392306298442283,0.466607150752925,0.549592018061346,0.641748164098206,0.743562144341504,0.855519973731538,0.978107215387062,0.999997934928179,0.999999974273665,0.999999480541176,0.999999330603523,0.999999355894903,0.999999280365251,0.999996057827535, 1,1]; % W
                   inp.system.lambda    = 7; % wing speed ratio
@@ -65,7 +64,7 @@ function inp = eco_system_inputs_example
                           % Kite
                           inp.kite.structure.m            = 5543; % kg
                           inp.kite.structure.A            = 100; % m^2
-                          inp.kite.structure.fixed.f_repl = 0; % /year
+                          inp.kite.structure.f_repl       = 0; % /year
                           inp.kite.obGen.P                = 1e3; % W
                           inp.kite.obBatt.E                = 1; % kWh
                           
@@ -101,7 +100,7 @@ function inp = eco_system_inputs_example
                           % Kite
                           inp.kite.structure.m           = 4e2;
                           inp.kite.structure.A           = 15;
-                          inp.kite.structure.soft.f_repl = -1;
+                          inp.kite.structure.f_repl      = -1;
                           inp.kite.obGen.P               = 1e3; % W
                           inp.kite.obBatt.E              = 0; % kWh
                           
@@ -131,6 +130,8 @@ function inp = eco_system_inputs_example
                   end             
           end        
       otherwise
-          inp = eco_import_model;     
+          inp = eco_import_model(inp); 
+          inp.atm.gw  = atm.k/atm.A *(inp.atm.wind_range/atm.A).^(atm.k-1).*exp(-(inp.atm.wind_range/atm.A).^atm.k); % Wind distribution
+
   end
 end

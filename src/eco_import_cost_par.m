@@ -7,7 +7,7 @@ function par = eco_import_cost_par
   % Import from excel
   sheets = {'kite','tether','gStation','BoS','BoP','metrics'};
   for q = 1:length(sheets)
-      cell = readcell(eco_settings.input_cost_file,'Sheet',sheets{q},'Range','A1:G50');
+      cell = readcell(eco_settings.input_cost_file,'Sheet',sheets{q},'Range','A1:B50');
       
       i = 1;
       flag = 0;

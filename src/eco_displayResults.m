@@ -25,10 +25,11 @@ function eco_displayResults(eco)
   title(['ICC = ', num2str(round(eco.metrics.ICC / 1e3)), ' k EUR'], 'Interpreter', 'latex', 'FontSize', 12);
   
   % Extracting significant OMC components
-  significant_omc_idx     = eco.metrics.omc > 2;
-  [sorted_omc, omc_order] = sort(eco.metrics.omc(significant_omc_idx), 'descend');
-  list_omc                = eco.metrics.omc_name(omc_order);
-  pp_omc                  = sorted_omc;
+  omc_perc                     = eco.metrics.omc / sum(eco.metrics.omc) * 100;
+  [sorted_omc_perc, omc_order] = sort(omc_perc, 'descend');
+  significant_omc_idx          = sorted_omc_perc > 2;
+  list_omc                     = eco.metrics.omc_name(omc_order(significant_omc_idx));
+  pp_omc                       = sorted_omc_perc(significant_omc_idx);
   
   % Plot 3: OMC Pie Chart
   subplot(1, 4, 3);

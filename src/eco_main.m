@@ -1,22 +1,41 @@
-function eco = eco_main(inp, par)
+%% EcoModel
+% A Reference Economic Model for Airborne Wind Energy Systems
 
-eco = struct;
-%% Kite
-eco = eco_kite(inp,par,eco);
+% Authors
+% - Rishikesh Joshi, 
+%   Delft University of Technology
+%
+% - Filippo Trevisi,
+%   Politecnico di Milano
 
-%% Tether
-eco = eco_tether(inp,par,eco);
+% License: MIT
 
-%% Ground station
-eco = eco_g_station(inp,par,eco);
+function [inp,par,eco] = eco_main(inp)  
+  
+  
+  
+  % Import cost model parameters
+  par = eco_import_cost_par;
 
-%% BoS
-eco = eco_BoS(inp,par,eco);
-
-%% BoP
-eco = eco_BoP(inp,par,eco);
-
-%% Economic indicators
-eco = eco_metrics(inp,par,eco);
+  % Defined structure to store results
+  eco = struct;
+  
+  % Kite
+  [inp,par,eco] = eco_kite(inp,par,eco);
+  
+  % Tether
+  [inp,par,eco] = eco_tether(inp,par,eco);
+  
+  % Ground station
+  [inp,par,eco] = eco_gStation(inp,par,eco);
+  
+  % BoS
+  [inp,par,eco] = eco_BoS(inp,par,eco);
+  
+  % BoP
+  [inp,par,eco] = eco_BoP(inp,par,eco);
+  
+  % Compute metrics
+  [inp,par,eco] = eco_computeMetrics(inp,par,eco);
 
 end

@@ -52,6 +52,8 @@ function inp = eco_system_inputs_example
                   % Ground station
                   inp.gStation.ultracap.E_rated = inp.kite.structure.m * 9.81*inp.kite.structure.b*5/3.6e6; % kWh
                   inp.gStation.ultracap.f_repl  = -1;
+                  inp.gStation.batt.E_rated     = inp.system.P_e_rated/1e3; % kWh
+                  inp.gStation.batt.f_repl      = -1; % /year
                   
               case  'GG' 
                   switch eco_settings.wing
@@ -84,7 +86,10 @@ function inp = eco_system_inputs_example
                           % Ground station
                           inp.gStation.ultracap.E_rated = 11.25; % kWh
                           inp.gStation.ultracap.E_ex    = [0	0	0	0	0	0.794997961209469	1.91620710592149	3.66340782590143	7.00053194254757	10.6616297528835	11.1890647627290	11.2279405187141	11.2277213125461	11.1934366085895	11.2473922571621	11.2098142616423	11.1438062076693	11.1273616907102	11.1228424486107	11.1240295153377	11.1278176039227	11.1328371206444	11.1385755705485	11.1448282168896	11.1514961274243]; % kWh
-                          inp.gStation.ultracap.f_repl  = -1; % /year                          
+                          inp.gStation.ultracap.f_repl  = -1; % /year  
+                          inp.gStation.batt.E_rated     = inp.system.P_e_rated/1e3; % kWh
+                          inp.gStation.batt.E_ex        = [0	0	0	0	0	0.794997961209469	1.91620710592149	3.66340782590143	7.00053194254757	10.6616297528835	11.1890647627290	11.2279405187141	11.2277213125461	11.1934366085895	11.2473922571621	11.2098142616423	11.1438062076693	11.1273616907102	11.1228424486107	11.1240295153377	11.1278176039227	11.1328371206444	11.1385755705485	11.1448282168896	11.1514961274243]; % kWh
+                          inp.gStation.batt.f_repl      = -1; % /year
                           inp.gStation.hydAccum.E_rated = inp.gStation.ultracap.E_rated ;  % kWh
                           inp.gStation.hydAccum.E_ex    = inp.gStation.ultracap.E_ex; % kWh
                           inp.gStation.hydAccum.f_repl  = -1; % /year
@@ -120,7 +125,10 @@ function inp = eco_system_inputs_example
                           % Ground station
                           inp.gStation.ultracap.E_rated = 1.1*inp.system.P_e_rated * 25/3600/1e3; % kWh
                           inp.gStation.ultracap.E_ex    = inp.gStation.ultracap.E_rated/2; % kWh
-                          inp.gStation.ultracap.f_repl  = -1;                          
+                          inp.gStation.ultracap.f_repl  = -1;    
+                          inp.gStation.batt.E_rated     = inp.system.P_e_rated/1e3; % kWh
+                          inp.gStation.batt.E_ex        = inp.gStation.ultracap.E_rated/2; % kWh
+                          inp.gStation.batt.f_repl      = -1; % /year
                           inp.gStation.hydAccum.E_rated = inp.gStation.ultracap.E_rated ;  % kWh
                           inp.gStation.hydAccum.E_ex    = inp.gStation.ultracap.E_ex; % kWh
                           inp.gStation.hydAccum.f_repl  = 0.1;

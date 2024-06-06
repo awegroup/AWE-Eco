@@ -42,13 +42,22 @@ function [inp,par,eco] = eco_gStation(inp,par,eco)
                   end
                   eco.gStation.gen.OPEX = 0;
                   
-                  % Ultracapacitors
-                  eco.gStation.ultracap.CAPEX = par.gStation.ultracap.p * inp.gStation.ultracap.E_rated;
-                  if inp.gStation.ultracap.f_repl<0
-                      inp.gStation.ultracap.f_repl = (8760 * trapz(inp.atm.wind_range,inp.atm.gw.* fillmissing(inp.gStation.ultracap.E_ex./(inp.system.Dt_cycle./3600),'constant',0)) /inp.gStation.ultracap.E_rated)/par.gStation.ultracap.N;
+                  % Electrical storage
+                  switch par.gStation.elecSto_type
+                    case 1 % Ultracapacitor bank
+                      eco.gStation.ultracap.CAPEX = par.gStation.ultracap.p * inp.gStation.ultracap.E_rated;
+                      if inp.gStation.ultracap.f_repl<0
+                          inp.gStation.ultracap.f_repl = (8760 * trapz(inp.atm.wind_range,inp.atm.gw.* fillmissing(inp.gStation.ultracap.E_ex./(inp.system.Dt_cycle./3600),'constant',0)) /inp.gStation.ultracap.E_rated)/par.gStation.ultracap.N;
+                      end
+                      eco.gStation.ultracap.OPEX = inp.gStation.ultracap.f_repl * eco.gStation.ultracap.CAPEX;
+                    case 2 % Battery bank
+                      eco.gStation.batt.CAPEX = par.gStation.batt.p * inp.gStation.batt.E_rated;
+                      if inp.gStation.batt.f_repl<0
+                          inp.gStation.batt.f_repl = (8760 * trapz(inp.atm.wind_range,inp.atm.gw.* fillmissing(inp.gStation.batt.E_ex./(inp.system.Dt_cycle./3600),'constant',0)) /inp.gStation.batt.E_rated)/par.gStation.batt.N;
+                      end
+                      eco.gStation.batt.OPEX = inp.gStation.batt.f_repl * eco.gStation.batt.CAPEX;
                   end
-                  eco.gStation.ultracap.OPEX = inp.gStation.ultracap.f_repl * eco.gStation.ultracap.CAPEX;
-                  
+
                   % Power converters
                   eco.gStation.powerConv.CAPEX = par.gStation.powerConv.p * (inp.system.P_e_rated + inp.system.P_m_peak)/1e3;
                   eco.gStation.powerConv.OPEX = 0;
@@ -93,14 +102,23 @@ function [inp,par,eco] = eco_gStation(inp,par,eco)
                   eco.gStation.winch.CAPEX = eco.gStation.winch.m * par.gStation.winch.p_st;
           end
           eco.gStation.winch.OPEX = 0;
-          
-          % Ultracapacitors
-          eco.gStation.ultracap.CAPEX = par.gStation.ultracap.p * inp.gStation.ultracap.E_rated;
+                   
+          % Electrical storage
+          switch par.gStation.elecSto_type
+            case 1 % Ultracapacitor bank
+              eco.gStation.ultracap.CAPEX = par.gStation.ultracap.p * inp.gStation.ultracap.E_rated;
            if inp.gStation.ultracap.f_repl<0
               inp.gStation.ultracap.f_repl = 8760 * trapz(inp.atm.wind_range,inp.atm.gw.* inp.atm.wind_range .* inp.system.lambda /(2*pi*inp.system.R0) ) /par.gStation.ultracap.N;
           end
           eco.gStation.ultracap.OPEX = inp.gStation.ultracap.f_repl * eco.gStation.ultracap.CAPEX;
-          
+            case 2 % Battery bank
+              eco.gStation.batt.CAPEX = par.gStation.batt.p * inp.gStation.batt.E_rated;
+              if inp.gStation.batt.f_repl<0
+                  inp.gStation.batt.f_repl = 8760 * trapz(inp.atm.wind_range,inp.atm.gw.* inp.atm.wind_range .* inp.system.lambda /(2*pi*inp.system.R0) ) /par.gStation.batt.N;
+              end
+              eco.gStation.batt.OPEX = inp.gStation.batt.f_repl * eco.gStation.batt.CAPEX;
+          end
+
           % Power converters
           eco.gStation.powerConv.CAPEX = 2 * par.gStation.powerConv.p * inp.system.P_e_rated/1e3;
           eco.gStation.powerConv.OPEX  = 0;

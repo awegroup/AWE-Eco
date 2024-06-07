@@ -1,4 +1,11 @@
 function inp = eco_system_inputs_example
+  %ECO_SYSTEM_INPUTS_EXAMPLE Generate example input parameters for the economic model.
+  %   This function generates example input parameters for the economic model based on the 
+  %   selected configuration in eco_settings. It provides values for wind conditions, 
+  %   business-related quantities, and topology-specific parameters.
+  %
+  %   Outputs:
+  %   - inp: Structure containing input parameters.
 
   global eco_settings
 

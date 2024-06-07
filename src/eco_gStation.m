@@ -1,5 +1,20 @@
 function [inp,par,eco] = eco_gStation(inp,par,eco)
-
+  %ECO_GSTATION Calculate costs related to ground station subsystem in AWE-Eco simulation.
+  %   This function computes the capital expenditure (CAPEX) and operational
+  %   expenditure (OPEX) associated with the ground station subsystem, including
+  %   winch, drivetrain, onboard generators, onboard batteries, power converters,
+  %   launch & land system, yaw system, and control and communication unit.
+  %
+  %   Inputs:
+  %   - inp: Structure containing input parameters for the AWE-Eco simulation.
+  %   - par: Structure containing cost model parameters.
+  %   - eco: Structure containing results and metrics of the AWE-Eco simulation.
+  %
+  %   Outputs:
+  %   - inp: Updated input structure after processing.
+  %   - par: Updated parameter structure.
+  %   - eco: Updated structure containing results and metrics.
+  
   global eco_settings
   
   switch  eco_settings.power

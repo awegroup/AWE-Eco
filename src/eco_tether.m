@@ -1,5 +1,18 @@
 function [inp,par,eco] = eco_tether(inp,par,eco)
-
+  %ECO_TETHER Calculate cost and operational parameters related to the tether.
+  %   This function computes the cost and operational parameters related to the tether, such as 
+  %   cross-sectional area, capital expenditure (CAPEX), operational expenditure (OPEX), and life estimation. 
+  %
+  %   Inputs:
+  %   - inp: Structure containing input parameters.
+  %   - par: Structure containing cost parameters.
+  %   - eco: Structure containing economic data.
+  %
+  %   Outputs:
+  %   - inp: Updated structure containing input parameters.
+  %   - par: Updated structure containing cost parameters.
+  %   - eco: Updated structure containing economic data.
+  
   global eco_settings
 
   % Tether cross sectional area

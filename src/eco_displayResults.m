@@ -1,6 +1,13 @@
 function eco_displayResults(eco)
+  %ECO_DISPLAYRESULTS Display economic metrics and breakdown in AWE-Eco simulation.
+  %   This function visualizes economic metrics and breakdown, including cost of
+  %   energy (LCoE), net present value (NPV), return on equity (RoE), profit, and
+  %   others, using pie charts and text summaries.
+  %
+  %   Inputs:
+  %   - eco: Structure containing results and metrics of the AWE-Eco simulation.
 
-  %% Figure
+  % Figure
   figure('units', 'normalized', 'outerposition', [0 0 0.9 0.9]);
 
   % Plot 1: Metrics Text
@@ -57,8 +64,7 @@ function eco_displayResults(eco)
   set(gcf, 'Color', 'w');
 
 
-  %% Display outputs
-
+  % Display outputs
   disp(['LCoE = ',num2str(round(eco.metrics.LCoE)),' €/MWh'])
   disp(['CoVE = ',num2str(round(eco.metrics.CoVE)),' €/MWh'])
   disp(['LRoE = ',num2str(round(eco.metrics.LRoE)),' €/MWh'])

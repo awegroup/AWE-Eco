@@ -1,4 +1,4 @@
-%% Example script to run the EcoModel
+%% Example script to run AWE-Eco
 
 %% Clear memory
 clear; clear global; close all; clc

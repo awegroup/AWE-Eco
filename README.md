@@ -30,3 +30,10 @@ In this folder, the inputs data can be defined in an Excel file or in a MATLAB f
 
 ## Licence
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## WAIVER
+Technische Universiteit Delft hereby disclaims all copyright interest in the program “AWE-Eco” (a reference economic model for airborne wind energy systems) written by the Author(s).
+
+Prof.dr. H.G.C. (Henri) Werij, Dean of Aerospace Engineering
+
+Copyright (c) 2024 Rishikesh Joshi & Filippo Trevisi

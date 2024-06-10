@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: If you use this software, please cite the repository and the reference report.
+message: If you use this software, please also cite the reference report mentioned in the README.
 authors:
   - family-names: Joshi
     given-names: Rishikesh 
@@ -13,5 +13,5 @@ title: AWE-Eco
 year: 2024
 version: 0.1.0
 doi: 
-repository-code: https://github.com/awegroup/AWE-Eco
 license: MIT
+url: https://github.com/awegroup/AWE-Eco

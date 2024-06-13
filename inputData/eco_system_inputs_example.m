@@ -109,38 +109,37 @@ function inp = eco_system_inputs_example
                           inp.atm.wind_range = [5,6,7,8,9,10,11,12,13,14,15,16];
                           inp.atm.gw         = atm.k/atm.A *(inp.atm.wind_range/atm.A).^(atm.k-1).*exp(-(inp.atm.wind_range/atm.A).^atm.k); % Wind distributio
                           
-                          % Kite
-%                           inp.kite.structure.m           = 4e2;
-                          inp.kite.structure.A           = 60;
-                          inp.kite.structure.f_repl      = -1;
+                          % Kite                           
+                          inp.kite.structure.A           = 60; % m
+                          inp.kite.structure.f_repl      = -1; % /year
                           inp.kite.obGen.P               = 1e3; % W
                           inp.kite.obBatt.E              = 0; % kWh
                           
                           % Tether
                           inp.tether.d      = 0.008; % m;
-                          inp.tether.L      = 352;
-                          inp.tether.rho    = 970;
-                          inp.tether.f_repl = -1;
+                          inp.tether.L      = 352; % m
+                          inp.tether.rho    = 970; % kg/m^3
+                          inp.tether.f_repl = -1; % /year
                           
                           % System
                           inp.system.F_t       = [4083.33333333,  8166.66666667, 12250., 16333.33333333, 20416.66666667, 24500., 24500., 24500., 24500., 24500., 24500., 24500.]; % N
-                          inp.system.P_m_peak  = 40e3;
-                          inp.system.P_e_avg   = 1e3.*[1, 5, 10, 20, 28, 30, 30, 30, 30, 30, 29, 28];
-                          inp.system.P_e_rated = max(inp.system.P_e_avg);
+                          inp.system.P_m_peak  = 40e3; % W
+                          inp.system.P_e_avg   = 1e3.*[1, 5, 10, 20, 28, 30, 30, 30, 30, 30, 29, 28]; % W
+                          inp.system.P_e_rated = max(inp.system.P_e_avg); % W
                           inp.system.Dt_cycle  = 100; % s
                           
                           % Ground station
                           inp.gStation.ultracap.E_rated = (inp.system.P_m_peak+10e3) * 20/3600/1e3; % kWh
                           inp.gStation.ultracap.E_ex    = inp.gStation.ultracap.E_rated/2; % kWh
-                          inp.gStation.ultracap.f_repl  = -1;    
+                          inp.gStation.ultracap.f_repl  = -1; % /year    
                           inp.gStation.batt.E_rated     = inp.system.P_e_rated/1e3; % kWh
                           inp.gStation.batt.E_ex        = inp.gStation.ultracap.E_rated/2; % kWh
                           inp.gStation.batt.f_repl      = -1; % /year
                           inp.gStation.hydAccum.E_rated = inp.gStation.ultracap.E_rated ;  % kWh
                           inp.gStation.hydAccum.E_ex    = inp.gStation.ultracap.E_ex; % kWh
-                          inp.gStation.hydAccum.f_repl  = 0.1;
-                          inp.gStation.hydMotor.f_repl  = 0.083;
-                          inp.gStation.pumpMotor.f_repl =  0.125;
+                          inp.gStation.hydAccum.f_repl  = 0.1; % /year
+                          inp.gStation.hydMotor.f_repl  = 0.083; % /year
+                          inp.gStation.pumpMotor.f_repl =  0.125; % /year
                           
                   end             
           end        

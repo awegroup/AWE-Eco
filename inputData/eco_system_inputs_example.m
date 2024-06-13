@@ -9,10 +9,10 @@ function inp = eco_system_inputs_example
 
   global eco_settings
 
-  eco_settings.input_cost_file  = 'eco_cost_inputs_GG_fixed'; % eco_cost_inputs_GG_fixed || eco_cost_inputs_FG || eco_cost_inputs_GG_soft || set the input file
+  eco_settings.input_cost_file  = 'eco_cost_inputs_GG_soft'; % eco_cost_inputs_GG_fixed || eco_cost_inputs_FG || eco_cost_inputs_GG_soft || set the input file
   eco_settings.input_model_file = 'code'; % code || eco_system_inputs_GG_fixed_example || eco_system_inputs_FG_example || eco_system_inputs_GG_soft_example || set the input file
   eco_settings.power            = 'GG';  % FG || GG 
-  eco_settings.wing             = 'fixed';  % fixed || soft
+  eco_settings.wing             = 'soft';  % fixed || soft
   
   %% Common parameters
   % Wind conditions
@@ -106,31 +106,31 @@ function inp = eco_system_inputs_example
                       case 'soft'
                           
                           % Wind resources
-                          inp.atm.wind_range = [4,5,6,7,8,9,10,11,12,13,14,16,18,20,22];
+                          inp.atm.wind_range = [5,6,7,8,9,10,11,12,13,14,15,16];
                           inp.atm.gw         = atm.k/atm.A *(inp.atm.wind_range/atm.A).^(atm.k-1).*exp(-(inp.atm.wind_range/atm.A).^atm.k); % Wind distributio
                           
                           % Kite
-                          inp.kite.structure.m           = 4e2;
-                          inp.kite.structure.A           = 15;
+%                           inp.kite.structure.m           = 4e2;
+                          inp.kite.structure.A           = 60;
                           inp.kite.structure.f_repl      = -1;
                           inp.kite.obGen.P               = 1e3; % W
                           inp.kite.obBatt.E              = 0; % kWh
                           
                           % Tether
-                          inp.tether.d      = 2e-2;
-                          inp.tether.L      = 300;
-                          inp.tether.rho    = 1e3;
+                          inp.tether.d      = 0.008; % m;
+                          inp.tether.L      = 352;
+                          inp.tether.rho    = 970;
                           inp.tether.f_repl = -1;
                           
                           % System
-                          inp.system.F_t       = [19581.5974490300,30589.4427976802,43855.1311512270,58322.4490072310,69451.8065536476,68432.4018007148,69371.4628861828,69478.8976127206,69485.8563217407,69497.1308164078,69482.9452160423,69481.7762790974,69481.0428798217,62833.9833242605,51867.1740101547];
-                          inp.system.P_m_peak  = 200e3;
-                          inp.system.P_e_avg   = 3/4*[21496.0471473482,41246.4942079856,69966.0193058485,108887.503260755,156932.246230542,198576.031463368,198565.375606173,198114.942308234,197641.383532483,197199.181237688,196755.860610617,195920.800890573,195135.252500918,174603.698597567,143719.204086628];
+                          inp.system.F_t       = [4083.33333333,  8166.66666667, 12250., 16333.33333333, 20416.66666667, 24500., 24500., 24500., 24500., 24500., 24500., 24500.]; % N
+                          inp.system.P_m_peak  = 40e3;
+                          inp.system.P_e_avg   = 1e3.*[1, 5, 10, 20, 28, 30, 30, 30, 30, 30, 29, 28];
                           inp.system.P_e_rated = max(inp.system.P_e_avg);
-                          inp.system.Dt_cycle  = 60; % s
+                          inp.system.Dt_cycle  = 100; % s
                           
                           % Ground station
-                          inp.gStation.ultracap.E_rated = 1.1*inp.system.P_e_rated * 25/3600/1e3; % kWh
+                          inp.gStation.ultracap.E_rated = (inp.system.P_m_peak+10e3) * 20/3600/1e3; % kWh
                           inp.gStation.ultracap.E_ex    = inp.gStation.ultracap.E_rated/2; % kWh
                           inp.gStation.ultracap.f_repl  = -1;    
                           inp.gStation.batt.E_rated     = inp.system.P_e_rated/1e3; % kWh

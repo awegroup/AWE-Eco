@@ -70,7 +70,7 @@ function eco_displayResults(eco)
   disp(['LRoE = ',num2str(round(eco.metrics.LRoE)),' €/MWh'])
   disp(['LPoE = ',num2str(round(eco.metrics.LPoE)),' €/MWh'])
   disp(['NPV = ',num2str(round(eco.metrics.NPV/1e3)),' k€'])
-  disp(['IRR = ',num2str(round(eco.metrics.IRR,3))])
+  disp(['IRR = ',num2str(round(eco.metrics.IRR,3)*100),'%'])
   disp(['ICC = ',num2str(round(eco.metrics.ICC/1e3)),' k€'])
   disp(['Profit = ',num2str(round(eco.metrics.Pi/1e3)),' k€/year'])
 end

@@ -9,10 +9,10 @@ function inp = eco_system_inputs_example
 
   global eco_settings
 
-  eco_settings.input_cost_file  = 'eco_cost_inputs_GG_soft'; % eco_cost_inputs_GG_fixed || eco_cost_inputs_FG || eco_cost_inputs_GG_soft || set the input file
+  eco_settings.input_cost_file  = 'eco_cost_inputs_GG_fixed'; % eco_cost_inputs_GG_fixed || eco_cost_inputs_FG || eco_cost_inputs_GG_soft || set the input file
   eco_settings.input_model_file = 'code'; % code || eco_system_inputs_GG_fixed_example || eco_system_inputs_FG_example || eco_system_inputs_GG_soft_example || set the input file
   eco_settings.power            = 'GG';  % FG || GG 
-  eco_settings.wing             = 'soft';  % fixed || soft
+  eco_settings.wing             = 'fixed';  % fixed || soft
   
   %% Common parameters
   % Wind conditions

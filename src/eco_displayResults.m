@@ -13,8 +13,8 @@ function eco_displayResults(eco)
   % Plot 1: Metrics Text
   subplot(1, 4, 1); 
   hold on
-  str_2_print = sprintf(['-- Metrics --\n CF = %.2f \n LCoE = %.0f EUR/MWh \n CoVE = %.0f EUR/MWh \n LRoE = %.0f EUR/MWh \n LPoE = %.0f EUR/MWh \n NPV = %.0f k EUR \n ICC = %.0f k EUR \n OMC = %.0f k EUR/year \n Profit = %.0f k EUR'], ...
-      eco.metrics.CF, eco.metrics.LCoE, eco.metrics.CoVE, eco.metrics.LRoE, eco.metrics.LPoE, eco.metrics.NPV/1e3, eco.metrics.ICC/1e3, eco.metrics.OMC/1e3, eco.metrics.Pi/1e3);
+  str_2_print = sprintf(['-- Metrics --\n CF = %.2f \n LCoE = %.0f EUR/MWh \n CoVE = %.0f EUR/MWh \n LRoE = %.0f EUR/MWh \n LPoE = %.0f EUR/MWh \n NPV = %.0f k EUR \n IRR = %.3f \n ICC = %.0f k EUR \n OMC = %.0f k EUR/year \n Profit = %.0f k EUR'], ...
+      eco.metrics.CF, eco.metrics.LCoE, eco.metrics.CoVE, eco.metrics.LRoE, eco.metrics.LPoE, eco.metrics.NPV/1e3, eco.metrics.IRR, eco.metrics.ICC/1e3, eco.metrics.OMC/1e3, eco.metrics.Pi/1e3);
   text(0, 1, str_2_print, 'HorizontalAlignment', 'Left', 'VerticalAlignment', 'Top', 'Interpreter', 'latex', 'FontSize', 12);
   axis off
   
@@ -70,6 +70,7 @@ function eco_displayResults(eco)
   disp(['LRoE = ',num2str(round(eco.metrics.LRoE)),' €/MWh'])
   disp(['LPoE = ',num2str(round(eco.metrics.LPoE)),' €/MWh'])
   disp(['NPV = ',num2str(round(eco.metrics.NPV/1e3)),' k€'])
+  disp(['IRR = ',num2str(round(eco.metrics.IRR,3))])
   disp(['ICC = ',num2str(round(eco.metrics.ICC/1e3)),' k€'])
   disp(['Profit = ',num2str(round(eco.metrics.Pi/1e3)),' k€/year'])
 end

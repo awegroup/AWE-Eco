@@ -14,4 +14,4 @@ inp = eco_system_inputs_example;
 [inp,par,eco] = eco_main(inp);
 
 %% Display results
-eco_displayResults(eco)
+eco_displayResults(inp, eco)

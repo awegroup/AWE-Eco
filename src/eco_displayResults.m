@@ -1,4 +1,4 @@
-function eco_displayResults(eco)
+function eco_displayResults(inp, eco)
   %ECO_DISPLAYRESULTS Display economic metrics and breakdown in AWE-Eco simulation.
   %   This function visualizes economic metrics and breakdown, including cost of
   %   energy (LCoE), net present value (NPV), return on equity (RoE), profit, and
@@ -62,7 +62,28 @@ function eco_displayResults(eco)
   
   % Adjusting figure properties for better visualization
   set(gcf, 'Color', 'w');
+  hold off
 
+  % Cashflow over the project
+  figure()
+  hold on
+  grid on
+  % Bar plot for cashflow
+  bar(eco.metrics.cashflow ./ 1e6, 'FaceColor', [0.2 0.6 0.8]);
+  % Plot payback year as a point
+  if ~isempty(eco.metrics.payback_year)
+      plot(eco.metrics.payback_year + 1, eco.metrics.cashflow(eco.metrics.payback_year + 1) / 1e6, 'ro', 'MarkerFaceColor', 'r', 'MarkerSize', 8);
+  end
+  ylabel('Million €');
+  xlabel('Year');
+  xticks([1:inp.business.N_y + 1]);
+  xticklabels([0:inp.business.N_y]);
+  title('Cashflow over the project');
+  
+  % Add some aesthetic improvements
+  set(gca, 'FontSize', 12, 'FontWeight', 'bold');
+  legend({'Cashflow', 'Payback Year'}, 'Location', 'Best');
+  hold off
 
   % Display outputs
   disp(['LCoE = ',num2str(round(eco.metrics.LCoE)),' €/MWh'])

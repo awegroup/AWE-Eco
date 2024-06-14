@@ -33,13 +33,13 @@ function [inp,par,eco] = eco_tether(inp,par,eco)
       case 'FG'
           eco.tether.CAPEX  = par.tether.f_mt * (par.tether.p * t.A *par.tether.f_At * t.L * t.rho * (1+ par.tether.f_coat));
   end
-  sigma = min(inp.system.F_t' / (par.tether.f_At*t.A), par.tether.sigma_max)';
+  eco.tether.sigma = min(inp.system.F_t' / (par.tether.f_At*t.A), par.tether.sigma_max)';
   
   %% OPEX
   % Tether life extimation due to bending - Relevant for GG
   switch  eco_settings.power
       case 'GG'
-          exp = par.tether.a_1b - par.tether.a_2b * sigma/1e9;
+          exp = par.tether.a_1b - par.tether.a_2b * eco.tether.sigma/1e9;
           Nb = 10.^exp;
           integral_term = inp.atm.gw./(inp.system.Dt_cycle./8760./3600.*Nb);
           integral_term(isinf(integral_term)) = 0;
@@ -48,7 +48,7 @@ function [inp,par,eco] = eco_tether(inp,par,eco)
   end
 
   % Tether life extimation due to creep - Relevant for FG
-  exp = polyval(par.tether.L_creep,sigma/1e9);
+  exp = polyval(par.tether.L_creep,eco.tether.sigma/1e9);
   L_creep = 10.^exp;
   life_creep = 1./(trapz(inp.atm.wind_range,inp.atm.gw./L_creep));
   eco.tether.f_repl_creep = 1/life_creep;

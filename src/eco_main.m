@@ -15,6 +15,8 @@ function [inp,par,eco] = eco_main(inp)
   %   See also: eco_import_cost_par, eco_kite, eco_tether, eco_gStation,
   %   eco_BoS, eco_BoP, eco_computeMetrics.
   
+  global eco_settings
+
   % Import cost model parameters
   par = eco_import_cost_par;
 
@@ -38,5 +40,13 @@ function [inp,par,eco] = eco_main(inp)
   
   % Compute metrics
   [inp,par,eco] = eco_computeMetrics(inp,par,eco);
+
+  % Save outputs 
+  mkdir 'outputFiles';
+  % Change names to associate with specific input file
+  save(['outputFiles\' eco_settings.name '_' 'inp' '.mat'], 'inp');
+  save(['outputFiles\' eco_settings.name '_' 'par' '.mat'], 'par');
+  save(['outputFiles\' eco_settings.name '_' 'eco' '.mat'], 'eco');
+
 
 end

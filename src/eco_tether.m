@@ -39,18 +39,18 @@ function [inp,par,eco] = eco_tether(inp,par,eco)
   % Tether life extimation due to bending - Relevant for GG
   switch  eco_settings.power
       case 'GG'
-          exp = par.tether.a_1b - par.tether.a_2b * eco.tether.sigma/1e9;
-          Nb = 10.^exp;
-          integral_term = inp.atm.gw./(inp.system.Dt_cycle./8760./3600.*Nb);
+          exp                                 = par.tether.a_1b - par.tether.a_2b * eco.tether.sigma/1e9;
+          Nb                                  = 10.^exp;
+          integral_term                       = inp.atm.gw./(inp.system.Dt_cycle./8760./3600.*Nb);
           integral_term(isinf(integral_term)) = 0;
-          L_bend = 1./(par.tether.N_bends * trapz(inp.atm.wind_range,integral_term));
-          eco.tether.f_repl_bend = 1/L_bend/3; % 3 times correction factor
+          L_bend                              = 1./(par.tether.N_bends * trapz(inp.atm.wind_range,integral_term));
+          eco.tether.f_repl_bend              = 1/L_bend/3; % 3 times correction factor
   end
 
   % Tether life extimation due to creep - Relevant for FG
-  exp = polyval(par.tether.L_creep,eco.tether.sigma/1e9);
-  L_creep = 10.^exp;
-  life_creep = 1./(trapz(inp.atm.wind_range,inp.atm.gw./L_creep));
+  exp                     = polyval(par.tether.L_creep,eco.tether.sigma/1e9);
+  L_creep                 = 10.^exp;
+  life_creep              = 1./(trapz(inp.atm.wind_range,inp.atm.gw./L_creep));
   eco.tether.f_repl_creep = 1/life_creep;
   
   % Set tether life to infinte is tether life > AWE operational years

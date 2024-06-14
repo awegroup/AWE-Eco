@@ -46,7 +46,7 @@ function [inp,par,eco] = eco_kite(inp,par,eco)
           
           % OPEX
           if inp.kite.structure.f_repl < 0
-              LF = trapz(inp.atm.wind_range,inp.atm.gw.*inp.system.F_t./max(inp.system.F_t));
+              LF                        = trapz(inp.atm.wind_range,inp.atm.gw.*inp.system.F_t./max(inp.system.F_t));
               inp.kite.structure.f_repl = LF/par.kite.structure.soft.L_str;
           end
           eco.kite.structure.OPEX = inp.kite.structure.f_repl* eco.kite.structure.CAPEX; % Capex times replacement frequency

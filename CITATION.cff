@@ -12,6 +12,21 @@ authors:
 title: AWE-Eco
 year: 2024
 version: 0.1.0
-doi: 
+doi: 10.5281/zenodo.12166696
 license: MIT
 url: https://github.com/awegroup/AWE-Eco
+preferred-citation:
+  type: report
+  authors:
+    - family-names: Joshi
+      given-names: Rishikesh 
+      affiliation: Delft University of Technology
+      orcid: 0000-0003-1401-9127
+    - family-names: Trevisi
+      given-names: Filippo
+      affiliation: Polytechnic University of Milan
+      orcid: 0000-0001-7356-9212
+title: Reference Economic Model for Airborne Wind Energy Systems
+  publisher: IEA Wind TCP Task 48
+  year: 2024
+  doi: 10.5281/zenodo.8114627

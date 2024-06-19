@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: If you use this software, please also cite the reference report mentioned in the README.
+message: If you use this software, please cite the reference report mentioned in the README.
 authors:
   - family-names: Joshi
     given-names: Rishikesh 
@@ -27,6 +27,7 @@ preferred-citation:
       affiliation: Polytechnic University of Milan
       orcid: 0000-0001-7356-9212
   title: Reference Economic Model for Airborne Wind Energy Systems
-  journal: IEA Wind TCP Task 48
   year: 2024
-  doi: 10.5281/zenodo.8114627
+  version: 1
+  publisher: IEA Wind TCP Task 48
+  doi: 10.5281/zenodo.10959930

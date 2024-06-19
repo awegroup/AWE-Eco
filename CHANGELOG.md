@@ -7,10 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.0] - 2024-05-15
+## [0.1.0] - 2024-06-19
 
 ### Added
+ - Initial release
 
 
-[Unreleased]: https://github.com/awegroup/EcoModel/compare/0.1.0...HEAD
-[0.1.0]: https://github.com/awegroup/EcoModel/releases/tag/0.1.0
+[Unreleased]: https://github.com/awegroup/AWE-Eco/compare/0.1.0...HEAD
+[0.1.0]: https://github.com/awegroup/AWE-Eco/releases/tag/0.1.0

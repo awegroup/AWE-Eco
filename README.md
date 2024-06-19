@@ -1,6 +1,8 @@
 # Reference Economic Model for Airborne Wind Energy Systems
 ![GitHub License](https://img.shields.io/github/license/awegroup/AWE-Eco)
 ![Static Badge](https://img.shields.io/badge/MATLAB-R2021b-blue)
+[![DOI](https://zenodo.org/badge/784601047.svg)](https://zenodo.org/doi/10.5281/zenodo.12166696)
+
 
 
 This is a MATLAB code implementation of the [Reference Economic Model for Airborne Wind Energy Systems](https://doi.org/10.5281/zenodo.10959930).
@@ -9,11 +11,11 @@ This is an active repository and hence we invite developers to contribute in dev
 
 ## Citation
 
-If you use AWE-Eco in your work, please cite the code repository and the associated report using the following format:
+If you use AWE-Eco in your work, please cite the associated report using the following format:
 
-1. Rishikesh Joshi and Filippo Trevisi (2024) "Reference Economic Model for Airborne Wind Energy Systems" (Version 1). IEA Wind TCP Task 48. https://doi.org/10.5281/zenodo.10959930. You can access the newest version of the report here - https://doi.org/10.5281/zenodo.8114627.
+Rishikesh Joshi and Filippo Trevisi (2024) "Reference Economic Model for Airborne Wind Energy Systems" (Version 1). IEA Wind TCP Task 48. https://doi.org/10.5281/zenodo.10959930. 
 
-2. [GitHub repo citation]
+You can access the newest version of the report here - https://doi.org/10.5281/zenodo.8114627.
 
 ## Dependencies
 The model is built and tested in MATLAB R2021b (without needing additional Add-ons). Try installing this version if your version of MATLAB does not execute the code successfully.
@@ -21,6 +23,13 @@ The input files use .xlsx file format.
 
 ## Installation and execution 
 Please Clone or Download the repository to start using the model.
+
+To clone execute in the terminal
+```
+git clone https://github.com/awegroup/AWE-Eco.git
+```
+
+To download as .zip file of the latest release, click on the following link: https://github.com/awegroup/AWE-Eco/archive/refs/tags/v0.1.0.zip
 
 ### run_aweEco.m
 This is the main script for running the economic model. Users can create instances of this script to run with their own inputs. 

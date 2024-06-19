@@ -1,4 +1,4 @@
-%% Example script to run the EcoModel
+%% Example script to run AWE-Eco
 
 %% Clear memory
 clear; clear global; close all; clc
@@ -14,4 +14,4 @@ inp = eco_system_inputs_example;
 [inp,par,eco] = eco_main(inp);
 
 %% Display results
-eco_displayResults(eco)
+eco_displayResults(inp, eco)

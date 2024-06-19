@@ -1,6 +1,10 @@
-%% Import input file and organize in structures for speeding up the code.
-
 function par = eco_import_cost_par
+  %ECO_IMPORT_COST_PAR Import cost parameters from an Excel file and organize them into a structure.
+  %   This function reads cost parameters from an Excel file and organizes them into
+  %   a structured format for use in the AWE-Eco simulation.
+  %
+  %   Outputs:
+  %   - par: Structure containing imported cost parameters.
 
   global eco_settings
   

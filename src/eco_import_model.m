@@ -1,6 +1,13 @@
-%% Import input file and organize in structures for speeding up the code.
-
 function inp = eco_import_model(inp)
+%ECO_IMPORT_MODEL Import model parameters from an Excel file and organize them into a structure.
+%   This function reads model parameters from an Excel file and organizes them into
+%   a structured format for use in the AWE-Eco simulation.
+%
+%   Inputs:
+%   - inp: Structure containing existing input parameters.
+%
+%   Outputs:
+%   - inp: Updated structure containing imported model parameters.
 
 global eco_settings
 

@@ -1,5 +1,19 @@
 function [inp,par,eco] = eco_kite(inp,par,eco)
-
+  %ECO_KITE Calculate costs related to kite subsystem in AWE-Eco simulation.
+  %   This function computes the capital expenditure (CAPEX) and operational
+  %   expenditure (OPEX) associated with the kite subsystem, including structure,
+  %   onboard generators, onboard batteries, and avionics.
+  %
+  %   Inputs:
+  %   - inp: Structure containing input parameters for the AWE-Eco simulation.
+  %   - par: Structure containing cost model parameters.
+  %   - eco: Structure containing results and metrics of the AWE-Eco simulation.
+  %
+  %   Outputs:
+  %   - inp: Updated input structure after processing.
+  %   - par: Updated parameter structure.
+  %   - eco: Updated structure containing results and metrics.
+  
   global eco_settings
 
   %% Structure
@@ -32,7 +46,7 @@ function [inp,par,eco] = eco_kite(inp,par,eco)
           
           % OPEX
           if inp.kite.structure.f_repl < 0
-              LF = trapz(inp.atm.wind_range,inp.atm.gw.*inp.system.F_t./max(inp.system.F_t));
+              LF                        = trapz(inp.atm.wind_range,inp.atm.gw.*inp.system.F_t./max(inp.system.F_t));
               inp.kite.structure.f_repl = LF/par.kite.structure.soft.L_str;
           end
           eco.kite.structure.OPEX = inp.kite.structure.f_repl* eco.kite.structure.CAPEX; % Capex times replacement frequency

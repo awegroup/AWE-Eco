@@ -20,11 +20,9 @@ preferred-citation:
   authors:
     - family-names: "Joshi"
       given-names: "Rishikesh" 
-      affiliation: Delft University of Technology
       orcid: "0000-0003-1401-9127"
     - family-names: "Trevisi"
       given-names: "Filippo"
-      affiliation: Polytechnic University of Milan
       orcid: "0000-0001-7356-9212"
   title: "Reference Economic Model for Airborne Wind Energy Systems"
   year: 2024

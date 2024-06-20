@@ -1,33 +1,33 @@
 cff-version: 1.2.0
 message: If you use this software, please cite the reference report mentioned in the README.
 authors:
-  - family-names: Joshi
-    given-names: Rishikesh 
+  - family-names: "Joshi"
+    given-names: "Rishikesh" 
     affiliation: Delft University of Technology
-    orcid: 0000-0003-1401-9127
-  - family-names: Trevisi
-    given-names: Filippo
+    orcid: "0000-0003-1401-9127"
+  - family-names: "Trevisi"
+    given-names: "Filippo"
     affiliation: Polytechnic University of Milan
-    orcid: 0000-0001-7356-9212
-title: AWE-Eco
-year: 2024
+    orcid: "0000-0001-7356-9212"
+title: "AWE-Eco"
+date-released: 2024-06
 version: 0.1.0
-doi: 10.5281/zenodo.12166696
+doi: "10.5281/zenodo.12166696"
 license: MIT
-url: https://github.com/awegroup/AWE-Eco
+url: "https://github.com/awegroup/AWE-Eco"
 preferred-citation:
   type: report
   authors:
-    - family-names: Joshi
-      given-names: Rishikesh 
+    - family-names: "Joshi"
+      given-names: "Rishikesh" 
       affiliation: Delft University of Technology
-      orcid: 0000-0003-1401-9127
-    - family-names: Trevisi
-      given-names: Filippo
+      orcid: "0000-0003-1401-9127"
+    - family-names: "Trevisi"
+      given-names: "Filippo"
       affiliation: Polytechnic University of Milan
-      orcid: 0000-0001-7356-9212
-  title: Reference Economic Model for Airborne Wind Energy Systems
+      orcid: "0000-0001-7356-9212"
+  title: "Reference Economic Model for Airborne Wind Energy Systems"
   year: 2024
   version: 1
-  publisher: IEA Wind TCP Task 48
-  doi: 10.5281/zenodo.10959930
+  journal: "IEA Wind TCP Task 48"
+  doi: "10.5281/zenodo.10959930"

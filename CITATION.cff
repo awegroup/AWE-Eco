@@ -16,7 +16,7 @@ doi: "10.5281/zenodo.12166696"
 license: MIT
 url: "https://github.com/awegroup/AWE-Eco"
 preferred-citation:
-  type: report
+  type: article
   authors:
     - family-names: "Joshi"
       given-names: "Rishikesh" 

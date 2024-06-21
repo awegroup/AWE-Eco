@@ -4,8 +4,8 @@
 clear; clear global; close all; clc
 
 %% Add necessary folders to path
-addpath(genpath([pwd '\inputData']));
-addpath(genpath([pwd '\src']));
+addpath(genpath([pwd '/inputData']));
+addpath(genpath([pwd '/src']));
 
 %% Import inputs
 inp = eco_system_inputs_example;

@@ -42,11 +42,13 @@ function [inp,par,eco] = eco_main(inp)
   [inp,par,eco] = eco_computeMetrics(inp,par,eco);
 
   % Save outputs 
-  mkdir 'outputFiles';
+  if not(isfolder('outputFiles'))
+    mkdir 'outputFiles';
+  end
   % Change names to associate with specific input file
-  save(['outputFiles\' eco_settings.name '_' 'inp' '.mat'], 'inp');
-  save(['outputFiles\' eco_settings.name '_' 'par' '.mat'], 'par');
-  save(['outputFiles\' eco_settings.name '_' 'eco' '.mat'], 'eco');
+  save(['outputFiles/' eco_settings.name '_' 'inp' '.mat'], 'inp');
+  save(['outputFiles/' eco_settings.name '_' 'par' '.mat'], 'par');
+  save(['outputFiles/' eco_settings.name '_' 'eco' '.mat'], 'eco');
 
 
 end

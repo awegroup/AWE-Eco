@@ -43,6 +43,9 @@ This folder contains all the source files of the model.
 ## Licence
 This project is licensed under the MIT License. Please see the below WAIVER in association with the license.
 
+## Acknowledgement
+The project was supported by the Digital Competence Centre, Delft University of Technology.
+
 ### WAIVER
 Technische Universiteit Delft hereby disclaims all copyright interest in the program “AWE-Eco” (a reference economic model for airborne wind energy systems) written by the Author(s).
 
